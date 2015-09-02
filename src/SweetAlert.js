@@ -30,10 +30,35 @@ const OVERWRITE_PROPS = {
   allowEscapeKey: false
 };
 
+const ALLOWS_INPUT_TYPE = [
+  'button',
+  'checkbox',
+  'color',
+  'date',
+  'datetime',
+  'datetime-local',
+  'email',
+  'file',
+  'hidden',
+  'image',
+  'month',
+  'number',
+  'password',
+  'radio',
+  'range',
+  'reset',
+  'search',
+  'submit',
+  'tel',
+  'text',
+  'time',
+  'url',
+  'week'
+];
 
 export default class SweetAlert extends Component {
   static propTypes = {
-
+    // sweetalert option
     title: PropTypes.string.isRequired,
     text: PropTypes.string,
     type: PropTypes.oneOf(['warning', 'error', 'success', 'info', 'input']),
@@ -41,7 +66,7 @@ export default class SweetAlert extends Component {
     showCancelButton: PropTypes.bool,
     showConfirmButton: PropTypes.bool,
     confirmButtonText: PropTypes.string,
-    confirmButtonColor: PropTypes.string, // todo
+    confirmButtonColor: PropTypes.string,
     cancelButtonText: PropTypes.string,
     imageUrl: PropTypes.string,
     imageSize: (props, propName) => {
@@ -51,11 +76,12 @@ export default class SweetAlert extends Component {
     },
     html: PropTypes.bool,
     animation: PropTypes.bool,
-    inputType: PropTypes.oneOf(['text', 'password']), // todo
+    inputType: PropTypes.oneOf(ALLOWS_INPUT_TYPE),
     inputPlaceholder: PropTypes.string,
     inputValue: PropTypes.string,
     showLoaderOnConfirm: PropTypes.bool,
 
+    // custom option
     show: PropTypes.bool,
     onConfirm: PropTypes.func,
     onCancel: PropTypes.func,
@@ -65,7 +91,7 @@ export default class SweetAlert extends Component {
   }
 
   static defaultProps = {
-
+    // sweetalert option
     title: null,
     text: null,
     type: null,
@@ -84,6 +110,7 @@ export default class SweetAlert extends Component {
     inputValue: null,
     showLoaderOnConfirm: false,
 
+    // custom option
     show: false
   }
 
@@ -163,6 +190,18 @@ export default class SweetAlert extends Component {
     this._outsideClickHandler = null;
   }
 
+  enableOutsideClick() {
+    const fn = this._outsideClickHandler;
+    document.addEventListener('mousedown', fn);
+    document.addEventListener('touchstart', fn);
+  }
+
+  disableOutsideClick() {
+    const fn = this._outsideClickHandler;
+    document.removeEventListener('mousedown', fn);
+    document.removeEventListener('touchstart', fn);
+  }
+
   bindEscapeKey(onEscapeKey) {
     onEscapeKey && mousetrap.bind('esc', onEscapeKey);
   }
@@ -186,18 +225,6 @@ export default class SweetAlert extends Component {
       onClose && onClose();
       this._show = false;
     }
-  }
-
-  enableOutsideClick() {
-    const fn = this._outsideClickHandler;
-    document.addEventListener('mousedown', fn);
-    document.addEventListener('touchstart', fn);
-  }
-
-  disableOutsideClick() {
-    const fn = this._outsideClickHandler;
-    document.removeEventListener('mousedown', fn);
-    document.removeEventListener('touchstart', fn);
   }
 
   render() {
