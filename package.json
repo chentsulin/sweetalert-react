@@ -54,6 +54,7 @@
   "dependencies": {
     "lodash": "^3.10.1",
     "mousetrap": "^1.5.3",
-    "sweetalert": "^1.1.0"
+    "sweetalert": "^1.1.0",
+    "warning": "^2.0.0"
   }
 }

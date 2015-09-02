@@ -2,9 +2,10 @@ import { Component, PropTypes } from 'react';
 import swal from 'sweetalert';
 import { pick } from 'lodash';
 import mousetrap from 'mousetrap';
+import warning from 'warning';
 import isSourceFound from './isSourceFound';
 
-const ALLOWS_KEY = [
+const ALLOWS_KEYS = [
   'title',
   'text',
   'type',
@@ -23,6 +24,14 @@ const ALLOWS_KEY = [
   'showLoaderOnConfirm'
 ];
 
+const REMOVED_KEYS = [
+  'timer',
+  'closeOnConfirm',
+  'closeOnCancel',
+  'allowOutsideClick',
+  'allowEscapeKey'
+];
+
 const OVERWRITE_PROPS = {
   closeOnConfirm: false,
   closeOnCancel: false,
@@ -30,7 +39,7 @@ const OVERWRITE_PROPS = {
   allowEscapeKey: false
 };
 
-const ALLOWS_INPUT_TYPE = [
+const ALLOWS_INPUT_TYPES = [
   'button',
   'checkbox',
   'color',
@@ -76,7 +85,7 @@ export default class SweetAlert extends Component {
     },
     html: PropTypes.bool,
     animation: PropTypes.bool,
-    inputType: PropTypes.oneOf(ALLOWS_INPUT_TYPE),
+    inputType: PropTypes.oneOf(ALLOWS_INPUT_TYPES),
     inputPlaceholder: PropTypes.string,
     inputValue: PropTypes.string,
     showLoaderOnConfirm: PropTypes.bool,
@@ -151,10 +160,11 @@ export default class SweetAlert extends Component {
   }
 
   setupWithProps(props) {
+    this.warningRemoved(props);
     const { show, onConfirm, onCancel, onClose, onEscapeKey } = props;
     if (show) {
       swal({
-        ...pick(props, ALLOWS_KEY),
+        ...pick(props, ALLOWS_KEYS),
         ...OVERWRITE_PROPS
       }, isConfirm => this.handleClick(isConfirm, onConfirm, onCancel));
       this._show = true;
@@ -162,6 +172,16 @@ export default class SweetAlert extends Component {
     } else {
       this.handleClose(onClose, onEscapeKey);
     }
+  }
+
+  warningRemoved(props) {
+    REMOVED_KEYS.forEach(key => {
+      warning(
+        props[key] === undefined,
+        '%s has been removed from sweetalert-react, pass `show` props and use event hook instead.',
+        '`' + key + '`'
+      );
+    });
   }
 
   registerOutsideClickHandler(handler) {
