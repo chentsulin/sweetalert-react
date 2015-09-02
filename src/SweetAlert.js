@@ -2,13 +2,13 @@ import { Component, PropTypes } from 'react';
 import swal from 'sweetalert';
 import { pick } from 'lodash';
 import mousetrap from 'mousetrap';
+import isSourceFound from './isSourceFound';
 
 const ALLOWS_KEY = [
   'title',
   'text',
   'type',
   'customClass',
-  'allowOutsideClick',
   'showCancelButton',
   'showConfirmButton',
   'confirmButtonText',
@@ -26,6 +26,7 @@ const ALLOWS_KEY = [
 const OVERWRITE_PROPS = {
   closeOnConfirm: false,
   closeOnCancel: false,
+  allowOutsideClick: false,
   allowEscapeKey: false
 };
 
@@ -36,9 +37,7 @@ export default class SweetAlert extends Component {
     title: PropTypes.string.isRequired,
     text: PropTypes.string,
     type: PropTypes.oneOf(['warning', 'error', 'success', 'info', 'input']),
-    allowEscapeKey: PropTypes.bool,
     customClass: PropTypes.string,
-    allowOutsideClick: PropTypes.bool,
     showCancelButton: PropTypes.bool,
     showConfirmButton: PropTypes.bool,
     confirmButtonText: PropTypes.string,
@@ -61,7 +60,8 @@ export default class SweetAlert extends Component {
     onConfirm: PropTypes.func,
     onCancel: PropTypes.func,
     onClose: PropTypes.func,
-    onEscapeKey: PropTypes.func
+    onEscapeKey: PropTypes.func,
+    onOutsideClick: PropTypes.func
   }
 
   static defaultProps = {
@@ -69,9 +69,7 @@ export default class SweetAlert extends Component {
     title: null,
     text: null,
     type: null,
-    allowEscapeKey: true,
     customClass: null,
-    allowOutsideClick: false,
     showCancelButton: false,
     showConfirmButton: true,
     confirmButtonText: 'OK',
@@ -96,10 +94,33 @@ export default class SweetAlert extends Component {
 
   componentDidMount() {
     this.setupWithProps(this.props);
+
+    if (this.props.onOutsideClick) {
+      this.registerOutsideClickHandler(this.props.onOutsideClick);
+    }
   }
 
   componentWillReceiveProps(props) {
     this.setupWithProps(props);
+
+    const oldOutsideClickHandler = this.props.onOutsideClick;
+    const newOutsideClickHandler = props.onOutsideClick;
+
+    if (oldOutsideClickHandler !== newOutsideClickHandler) {
+      if (oldOutsideClickHandler && newOutsideClickHandler) {
+        this.unregisterOutsideClickHandler();
+        this.registerOutsideClickHandler(newOutsideClickHandler);
+      } else if (oldOutsideClickHandler && !newOutsideClickHandler) {
+        this.unregisterOutsideClickHandler();
+      } else if ((!oldOutsideClickHandler) && newOutsideClickHandler) {
+        this.registerOutsideClickHandler(newOutsideClickHandler);
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    this.disableOutsideClick();
+    this._outsideClickHandler = false;
   }
 
   setupWithProps(props) {
@@ -114,6 +135,32 @@ export default class SweetAlert extends Component {
     } else {
       this.handleClose(onClose, onEscapeKey);
     }
+  }
+
+  registerOutsideClickHandler(handler) {
+    this._outsideClickHandler = ((localNode, eventHandler) => {
+      return (evt) => {
+        var source = evt.target;
+        var found = false;
+        // If source=local then this event came from "somewhere"
+        // inside and should be ignored. We could handle this with
+        // a layered approach, too, but that requires going back to
+        // thinking in terms of Dom node nesting, running counter
+        // to React's "you shouldn't care about the DOM" philosophy.
+        while (source.parentNode) {
+          found = isSourceFound(source, localNode);
+          if (found) return;
+          source = source.parentNode;
+        }
+        eventHandler(evt);
+      };
+    }(document.getElementsByClassName('sweet-alert'), handler));
+    this.enableOutsideClick();
+  }
+
+  unregisterOutsideClickHandler() {
+    this.disableOutsideClick();
+    this._outsideClickHandler = null;
   }
 
   bindEscapeKey(onEscapeKey) {
@@ -135,10 +182,22 @@ export default class SweetAlert extends Component {
   handleClose(onClose, onEscapeKey) {
     if (this._show) {
       swal.close();
-      unbindEscapeKey(onEscapeKey);
+      this.unbindEscapeKey(onEscapeKey);
       onClose && onClose();
       this._show = false;
     }
+  }
+
+  enableOutsideClick() {
+    const fn = this._outsideClickHandler;
+    document.addEventListener('mousedown', fn);
+    document.addEventListener('touchstart', fn);
+  }
+
+  disableOutsideClick() {
+    const fn = this._outsideClickHandler;
+    document.removeEventListener('mousedown', fn);
+    document.removeEventListener('touchstart', fn);
   }
 
   render() {
