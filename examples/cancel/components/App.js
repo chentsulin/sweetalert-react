@@ -17,9 +17,18 @@ class App extends Component {
         <button onClick={() => this.setState({ show: true })}>Alert</button>
         <SweetAlert
           show={this.state.show}
-          title="Demo"
+          title="Demo with Cancel"
           text="SweetAlert in React"
-          onConfirm={() => this.setState({ show: false })}
+          showCancelButton={true}
+          onConfirm={() => {
+            console.log('confirm');
+            this.setState({ show: false });
+          }}
+          onCancel={() => {
+            console.log('cancel');
+            this.setState({ show: false });
+          }}
+          onClose={() => console.log('close')}
         />
       </div>
     );

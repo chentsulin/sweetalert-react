@@ -34,9 +34,9 @@ export default class SweetAlert extends Component {
 
     title: PropTypes.string.isRequired,
     text: PropTypes.string,
-    type: PropTypes.oneOf(['warning', 'error', 'success', 'info']),
+    type: PropTypes.oneOf(['warning', 'error', 'success', 'info', 'input']),
     allowEscapeKey: PropTypes.bool,
-    customClass: PropTypes.string, // todo
+    customClass: PropTypes.string,
     allowOutsideClick: PropTypes.bool,
     showCancelButton: PropTypes.bool,
     showConfirmButton: PropTypes.bool,
@@ -44,7 +44,11 @@ export default class SweetAlert extends Component {
     confirmButtonColor: PropTypes.string, // todo
     cancelButtonText: PropTypes.string,
     imageUrl: PropTypes.string,
-    imageSize: PropTypes.string, // todo
+    imageSize: (props, propName) => {
+      if (!/^[1-9]\d*x[1-9]\d*/.test(props[propName])) {
+        return new Error('imageSize should have the format like this: "80x80"');
+      }
+    },
     html: PropTypes.bool,
     animation: PropTypes.bool,
     inputType: PropTypes.oneOf(['text', 'password']), // todo
@@ -83,25 +87,27 @@ export default class SweetAlert extends Component {
     show: false
   }
 
+  constructor(props, context) {
+    super(props, context);
+    this._show = false;
+  }
+
   componentDidMount() {
-    setupWithProps(this.props);
+    this.setupWithProps(this.props);
   }
 
   componentWillReceiveProps(props) {
-    setupWithProps(props);
-  }
-
-  componentWillUnmount() {
-    this._swal = null;
+    this.setupWithProps(props);
   }
 
   setupWithProps(props) {
     const { show, onConfirm, onCancel, onClose } = props;
     if (show) {
-      this._swal = swal({
+      swal({
         ...pick(props, ALLOWS_KEY),
         ...OVERWRITE_PROPS
       }, isConfirm => this.handleClick(isConfirm, onConfirm, onCancel));
+      this._show = true;
     } else {
       this.handleClose(onClose);
     }
@@ -116,10 +122,10 @@ export default class SweetAlert extends Component {
   }
 
   handleClose(onClose) {
-    if (this._swal) {
-      this._swal.close();
+    if (this._show) {
+      swal.close();
       onClose && onClose();
-      this._swal = null;
+      this._show = false;
     }
   }
 

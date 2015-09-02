@@ -1,12 +1,13 @@
 # sweetalert-react
 
 [![NPM version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
 [![Dependency Status][david_img]][david_site]
 
 > sweetalert in react
 
+## Motivation
+
+Use `sweetalert` with React style lifecycle. I add `show` prop to determinate alert should diplay or not, and then add `onConfirm`, `onCancel`, `onClose` props to have more control on alert.
 
 ## Install
 
@@ -14,24 +15,35 @@
 $ npm install sweetalert-react
 ```
 
-
 ## Usage
 
 ```js
 var SweetAlert = require('sweetalert-react');
 
+// ...
+
 render() {
   return (
-	<div>
-	  <SweetAlert
-	    title="ERROR!!!!"
-	    text="some bad thing happened"
-	  />
-	</div>
+    <div>
+      <button onClick={() => this.setState({ show: true })}>Alert</button>
+      <SweetAlert
+        show={this.state.show}
+        title="Demo"
+        text="SweetAlert in React"
+        onConfirm={() => this.setState({ show: false })}
+      />
+    </div>
   );
 }
-//=>
 ```
+
+See full example [here](./example/simple).
+
+## Removed Options
+
+- **timer**: you should use `setTimeout` and change `show` prop.
+- **closeOnConfirm**: you should pass `show` as false via `onConfirm`.
+- **closeOnCancel**: you should pass `show` as false via `onCancel`.
 
 ## License
 
