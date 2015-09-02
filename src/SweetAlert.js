@@ -1,12 +1,12 @@
 import { Component, PropTypes } from 'react';
 import swal from 'sweetalert';
 import { pick } from 'lodash';
+import mousetrap from 'mousetrap';
 
 const ALLOWS_KEY = [
   'title',
   'text',
   'type',
-  'allowEscapeKey',
   'customClass',
   'allowOutsideClick',
   'showCancelButton',
@@ -25,7 +25,8 @@ const ALLOWS_KEY = [
 
 const OVERWRITE_PROPS = {
   closeOnConfirm: false,
-  closeOnCancel: false
+  closeOnCancel: false,
+  allowEscapeKey: false
 };
 
 
@@ -59,7 +60,8 @@ export default class SweetAlert extends Component {
     show: PropTypes.bool,
     onConfirm: PropTypes.func,
     onCancel: PropTypes.func,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    onEscapeKey: PropTypes.func
   }
 
   static defaultProps = {
@@ -101,16 +103,25 @@ export default class SweetAlert extends Component {
   }
 
   setupWithProps(props) {
-    const { show, onConfirm, onCancel, onClose } = props;
+    const { show, onConfirm, onCancel, onClose, onEscapeKey } = props;
     if (show) {
       swal({
         ...pick(props, ALLOWS_KEY),
         ...OVERWRITE_PROPS
       }, isConfirm => this.handleClick(isConfirm, onConfirm, onCancel));
       this._show = true;
+      this.bindEscapeKey(onEscapeKey);
     } else {
-      this.handleClose(onClose);
+      this.handleClose(onClose, onEscapeKey);
     }
+  }
+
+  bindEscapeKey(onEscapeKey) {
+    onEscapeKey && mousetrap.bind('esc', onEscapeKey);
+  }
+
+  unbindEscapeKey(onEscapeKey) {
+    onEscapeKey && mousetrap.unbind('esc', onEscapeKey);
   }
 
   handleClick(isConfirm, onConfirm, onCancel) {
@@ -121,9 +132,10 @@ export default class SweetAlert extends Component {
     }
   }
 
-  handleClose(onClose) {
+  handleClose(onClose, onEscapeKey) {
     if (this._show) {
       swal.close();
+      unbindEscapeKey(onEscapeKey);
       onClose && onClose();
       this._show = false;
     }

@@ -7,7 +7,7 @@
 
 ## Motivation
 
-Use `sweetalert` with React style lifecycle. I add `show` prop to determinate alert should be diplayed or not, and then add `onConfirm`, `onCancel`, `onClose` props to have more controls on alert.
+Use `sweetalert` with React style lifecycle. I add `show` prop to determinate alert should be diplayed or not, and then add `onConfirm`, `onCancel`, `onClose`, `onEscapeKey` props to have more controls on alert.
 
 ## Install
 
@@ -18,7 +18,8 @@ $ npm install sweetalert-react
 ## Usage
 
 ```js
-var SweetAlert = require('sweetalert-react');
+import React, { Component } from 'react';
+import SweetAlert from 'sweetalert-react';
 
 // ...
 
@@ -37,13 +38,16 @@ render() {
 }
 ```
 
-See full example [here](./example/simple).
+You should import `sweetalert.css` from cdn, file, node_modules(sweetalert/dist/sweetalert.css) or anything else.
+
+See full example [here](./examples).
 
 ## Removed Options
 
 - **timer**: you should use `setTimeout` and change `show` prop.
 - **closeOnConfirm**: you should pass `show` as false via `onConfirm`.
 - **closeOnCancel**: you should pass `show` as false via `onCancel`.
+- **allowEscapeKey**: you should pass `show` as false via `onEscapeKey`.
 
 ## License
 
