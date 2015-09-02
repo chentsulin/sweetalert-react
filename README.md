@@ -7,7 +7,7 @@
 
 ## Motivation
 
-Use `sweetalert` with React style lifecycle. I add `show` prop to determinate alert should diplay or not, and then add `onConfirm`, `onCancel`, `onClose` props to have more control on alert.
+Use `sweetalert` with React style lifecycle. I add `show` prop to determinate alert should be diplayed or not, and then add `onConfirm`, `onCancel`, `onClose` props to have more controls on alert.
 
 ## Install
 
