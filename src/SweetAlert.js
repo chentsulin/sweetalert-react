@@ -1,9 +1,37 @@
 import { Component, PropTypes } from 'react';
 import swal from 'sweetalert';
+import { pick } from 'lodash';
+
+const ALLOWS_KEY = [
+  'title',
+  'text',
+  'type',
+  'allowEscapeKey',
+  'customClass',
+  'allowOutsideClick',
+  'showCancelButton',
+  'showConfirmButton',
+  'confirmButtonText',
+  'confirmButtonColor',
+  'cancelButtonText',
+  'imageUrl',
+  'imageSize',
+  'html',
+  'animation',
+  'inputType',
+  'inputPlaceholder',
+  'showLoaderOnConfirm'
+];
+
+const OVERWRITE_PROPS = {
+  closeOnConfirm: false,
+  closeOnCancel: false
+};
 
 
 export default class SweetAlert extends Component {
   static propTypes = {
+
     title: PropTypes.string.isRequired,
     text: PropTypes.string,
     type: PropTypes.oneOf(['warning', 'error', 'success', 'info']),
@@ -15,8 +43,6 @@ export default class SweetAlert extends Component {
     confirmButtonText: PropTypes.string,
     confirmButtonColor: PropTypes.string, // todo
     cancelButtonText: PropTypes.string,
-    closeOnConfirm: PropTypes.bool,
-    closeOnCancel: PropTypes.bool,
     imageUrl: PropTypes.string,
     imageSize: PropTypes.string, // todo
     html: PropTypes.bool,
@@ -24,10 +50,16 @@ export default class SweetAlert extends Component {
     inputType: PropTypes.oneOf(['text', 'password']), // todo
     inputPlaceholder: PropTypes.string,
     inputValue: PropTypes.string,
-    showLoaderOnConfirm: PropTypes.bool
+    showLoaderOnConfirm: PropTypes.bool,
+
+    show: PropTypes.bool,
+    onConfirm: PropTypes.func,
+    onCancel: PropTypes.func,
+    onClose: PropTypes.func
   }
 
   static defaultProps = {
+
     title: null,
     text: null,
     type: null,
@@ -39,8 +71,6 @@ export default class SweetAlert extends Component {
     confirmButtonText: 'OK',
     confirmButtonColor: '#AEDEF4',
     cancelButtonText: 'Cancel',
-    closeOnConfirm: true,
-    closeOnCancel: true,
     imageUrl: null,
     imageSize: '80x80',
     html: false,
@@ -48,19 +78,49 @@ export default class SweetAlert extends Component {
     inputType: 'text',
     inputPlaceholder: null,
     inputValue: null,
-    showLoaderOnConfirm: false
+    showLoaderOnConfirm: false,
+
+    show: false
   }
 
   componentDidMount() {
-    this._swal = swal(this.props);
+    setupWithProps(this.props);
   }
 
   componentWillReceiveProps(props) {
-    this._swal = swal(props);
+    setupWithProps(props);
   }
 
   componentWillUnmount() {
     this._swal = null;
+  }
+
+  setupWithProps(props) {
+    const { show, onConfirm, onCancel, onClose } = props;
+    if (show) {
+      this._swal = swal({
+        ...pick(props, ALLOWS_KEY),
+        ...OVERWRITE_PROPS
+      }, isConfirm => this.handleClick(isConfirm, onConfirm, onCancel));
+    } else {
+      this.handleClose(onClose);
+    }
+  }
+
+  handleClick(isConfirm, onConfirm, onCancel) {
+    if (isConfirm) {
+      onConfirm && onConfirm(isConfirm);
+    } else {
+      onCancel && onCancel();
+    }
+  }
+
+  handleClose(onClose) {
+    if (this._swal) {
+      this._swal.close();
+      onClose && onClose();
+      this._swal = null;
+    }
   }
 
   render() {
