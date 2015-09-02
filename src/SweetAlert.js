@@ -19,7 +19,6 @@ export default class SweetAlert extends Component {
     closeOnCancel: PropTypes.bool,
     imageUrl: PropTypes.string,
     imageSize: PropTypes.string, // todo
-    timer: PropTypes.number,
     html: PropTypes.bool,
     animation: PropTypes.bool,
     inputType: PropTypes.oneOf(['text', 'password']), // todo
@@ -44,7 +43,6 @@ export default class SweetAlert extends Component {
     closeOnCancel: true,
     imageUrl: null,
     imageSize: '80x80',
-    timer: null,
     html: false,
     animation: true,
     inputType: 'text',
