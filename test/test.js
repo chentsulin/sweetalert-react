@@ -4,11 +4,11 @@ import SweetAlert from '../src/SweetAlert';
 
 
 describe('SweetAlert', () => {
-  it('should ', () => {
+  xit('should ', () => {
 
   });
 
-  it('should ', async () => {
+  xit('should ', async () => {
 
   });
 });
