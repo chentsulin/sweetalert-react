@@ -35,7 +35,9 @@
   "keywords": [
     "alert",
     "sweetalert",
-    "react"
+    "react",
+    "component",
+    "react-component"
   ],
   "devDependencies": {
     "babel": "^5.8.21",
