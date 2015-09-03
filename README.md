@@ -3,11 +3,11 @@
 [![NPM version][npm-image]][npm-url]
 [![Dependency Status][david_img]][david_site]
 
-> sweetalert in React
+> Using sweetalert in React
 
 ## Motivation
 
-Use `sweetalert` with React style lifecycle. I add `show` prop to determinate alert should be diplayed or not, and then add `onConfirm`, `onCancel`, `onClose`, `onEscapeKey` and `onOutsideClick` props to have more controls on alert element.
+A wrapped `sweetalert` implement with React style lifecycle. I add `show` prop to determinate alert should be diplayed or not, and then add `onConfirm`, `onCancel`, `onClose`, `onEscapeKey` and `onOutsideClick` props to have more controls on alert element.
 
 ## Install
 
