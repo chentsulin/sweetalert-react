@@ -54,7 +54,7 @@
     "webpack": "^1.11.0"
   },
   "dependencies": {
-    "lodash": "^3.10.1",
+    "lodash.pick": "^3.1.0",
     "mousetrap": "^1.5.3",
     "sweetalert": "^1.1.0",
     "warning": "^2.0.0"

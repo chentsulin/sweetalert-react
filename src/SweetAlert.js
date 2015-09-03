@@ -1,6 +1,6 @@
 import { Component, PropTypes } from 'react';
 import swal from 'sweetalert';
-import { pick } from 'lodash';
+import pick from 'lodash.pick';
 import mousetrap from 'mousetrap';
 import warning from 'warning';
 import isSourceFound from './isSourceFound';
