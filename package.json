@@ -9,9 +9,6 @@
     "start": "node server.js",
     "clean": "rimraf lib dist coverage",
     "lint": "eslint src test",
-    "build:lib": "babel src --out-dir lib",
-    "build:umd": "webpack src/SweetAlert.js dist/sweetalert-react.js --config webpack.config.development.js",
-    "build:umd:min": "webpack src/SweetAlert.js dist/sweetalert-react.min.js --config webpack.config.production.js",
     "build": "webpack --config webpack.config.production.js"
   },
   "author": {

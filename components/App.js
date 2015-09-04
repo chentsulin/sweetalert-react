@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import SweetAlert from 'sweetalert-react';
+import CodeDisplay from './CodeDisplay';
 import 'sweetalert/dist/sweetalert.css';
+import './App.css';
 
 
 class App extends Component {
@@ -14,7 +16,13 @@ class App extends Component {
   render() {
     return (
       <div>
-        <button onClick={() => this.setState({ show: true })}>Alert</button>
+        <CodeDisplay />
+        <button
+          className="btn"
+          onClick={() => this.setState({ show: true })}
+        >
+          Alert
+        </button>
         <SweetAlert
           show={this.state.show}
           title="Demo Complex"
