@@ -1,16 +1,21 @@
 'use strict';
 
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
+  devtool: 'source-map',
+  entry: './index',
   module: {
     loaders: [
-      { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ }
+      { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ },
+      { test: /\.css$/, loaders: ['style-loader', 'css-loader'] }
     ]
   },
   output: {
-    library: 'Redux',
-    libraryTarget: 'umd'
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   resolve: {
     extensions: ['', '.js']

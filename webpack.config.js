@@ -11,28 +11,18 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
-  resolve: {
-    alias: {
-      'sweetalert-react': path.join(__dirname, '..', '..', 'src', 'SweetAlert.js')
-    },
-    extensions: ['', '.js']
-  },
   module: {
     loaders: [{
       test: /\.js$/,
       loaders: ['react-hot', 'babel'],
       exclude: /node_modules/,
       include: __dirname
-    }, {
-      test: /\.js$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, '..', '..', 'src')
     }, {
       test: /\.css$/,
       loaders: ['style-loader', 'css-loader']
