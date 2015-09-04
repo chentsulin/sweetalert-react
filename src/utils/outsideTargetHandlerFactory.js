@@ -1,14 +1,14 @@
-import isSourceFound from './isSourceFound';
+import isDOMEquals from './isDOMEquals';
 
-export default function outsideTargetHandlerFactory(localNode, eventHandler) {
+export default function outsideTargetHandlerFactory(targetNode, eventHandler) {
   return (evt) => {
     evt.stopPropagation();
-    var source = evt.target;
+    var current = evt.target;
     var found = false;
-    while (source.parentNode) {
-      found = isSourceFound(source, localNode);
+    while (current.parentNode) {
+      found = isDOMEquals(current, targetNode);
       if (found) return;
-      source = source.parentNode;
+      current = current.parentNode;
     }
     eventHandler(evt);
   };
