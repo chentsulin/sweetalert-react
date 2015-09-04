@@ -187,7 +187,7 @@ export default class SweetAlert extends Component {
 
   registerOutsideClickHandler(handler) {
     this._outsideClickHandler = outsideTargetHandlerFactory(
-      document.getElementsByClassName('sweet-alert'),
+      document.getElementsByClassName('sweet-alert')[0],
       handler
     );
     this.enableOutsideClick();
