@@ -1,6 +1,6 @@
 import React, { Component, findDOMNode } from 'react';
-import hljs from 'highlight.js';
-import 'highlight.js/styles/tomorrow.css';
+import Prism from './prism';
+import './prism.css';
 
 
 var code =
@@ -37,20 +37,19 @@ render() {
 class CodeDisplay extends Component {
 
   componentDidMount() {
-    var domNode = findDOMNode(this.refs.display);
-    var nodes = domNode.querySelectorAll('pre code');
-    if (nodes.length > 0) {
-      for (var i = 0; i < nodes.length; i = i + 1) {
-        hljs.highlightBlock(nodes[i]);
-      }
-    }
+    Prism.highlightAll();
   }
 
   render() {
     return (
-      <div style={{ fontSize: 14 }}>
-        <pre ref="display">
-          <code className="javascript">{code}</code>
+      <div style={{ height: '100vh', fontSize: 14 }}>
+        <pre style={{
+          boxSizing: 'border-box',
+          height: 'inherit',
+          margin: 0,
+          paddingLeft: 30
+        }}>
+          <code className="language-javascript">{code}</code>
         </pre>
       </div>
     );
