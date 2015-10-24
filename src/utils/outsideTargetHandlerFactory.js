@@ -1,10 +1,16 @@
 import isDOMEquals from './isDOMEquals';
 
+/**
+ *
+ * @param  {HTMLElement}  targetNode
+ * @param  {HTMLElement}  eventHandler
+ * @return {Boolean}
+ */
 export default function outsideTargetHandlerFactory(targetNode, eventHandler) {
   return (evt) => {
     evt.stopPropagation();
-    var current = evt.target;
-    var found = false;
+    let current = evt.target;
+    let found = false;
     while (current.parentNode) {
       found = isDOMEquals(current, targetNode);
       if (found) return;
