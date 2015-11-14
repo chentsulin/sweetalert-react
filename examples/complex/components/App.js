@@ -18,6 +18,7 @@ class App extends Component {
         <SweetAlert
           show={this.state.show}
           title="Demo Complex"
+          type="success"
           text="SweetAlert in React"
           showCancelButton={true}
           onConfirm={() => {
