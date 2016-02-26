@@ -79,7 +79,7 @@ export default class SweetAlert extends Component {
     confirmButtonColor: PropTypes.string,
     cancelButtonText: PropTypes.string,
     imageUrl: PropTypes.string,
-    imageSize: (props, propName) => {
+    imageSize(props, propName) {
       if (!/^[1-9]\d*x[1-9]\d*/.test(props[propName])) {
         return new Error('imageSize should have the format like this: "80x80"');
       }
