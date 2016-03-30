@@ -5,9 +5,9 @@
 
 > Using sweetalert in React
 
-## Motivation
+## Introduction
 
-A wrapped `sweetalert` implement with React style lifecycle. I add `show` prop to determinate alert should be displayed or not, and then add `onConfirm`, `onCancel`, `onClose`, `onEscapeKey` and `onOutsideClick` props to have more controls on alert element.
+`SweetAlert` is a wrapped `sweetalert` implement with React style lifecycle. It have a `show` prop to determinate that alert should be displayed or not, and `onConfirm`, `onCancel`, `onClose`, `onEscapeKey` and `onOutsideClick` props to have more controls on alert element event.
 
 ## Install
 
@@ -38,19 +38,19 @@ render() {
 }
 ```
 
-You should import `sweetalert.css` from cdn, file, node_modules(sweetalert/dist/sweetalert.css) or anything else.
+You should import `sweetalert.css` from cdn, file, node_modules(sweetalert/dist/sweetalert.css) or wherever can find the css code.
 
 Checkout full examples [here](./examples).
 
 ## Removed Options
 
-- **timer**: you should use `setTimeout` and pass `show` as false.
-- **closeOnConfirm**: you should pass `show` as false via `onConfirm`.
-- **closeOnCancel**: you should pass `show` as false via `onCancel`.
-- **allowEscapeKey**: you should pass `show` as false via `onEscapeKey`.
-- **allowOutsideClick**: you should pass `show` as false via `onOutsideClick`.
+- **timer**: You should use `setTimeout` and pass `show` as false.
+- **closeOnConfirm**: You should pass `show` as false via `onConfirm`.
+- **closeOnCancel**: You should pass `show` as false via `onCancel`.
+- **allowEscapeKey**: You should pass `show` as false via `onEscapeKey`.
+- **allowOutsideClick**: You should pass `show` as false via `onOutsideClick`.
 
-Other options can be passed as props, see all in [Configuare Section in sweetalert document](http://t4t5.github.io/sweetalert/)
+All of other options can be passed as props, see them in [Configuare Section in sweetalert document](http://t4t5.github.io/sweetalert/)
 
 ## License
 
