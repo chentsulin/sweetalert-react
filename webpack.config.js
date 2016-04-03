@@ -1,3 +1,4 @@
+/* eslint no-var: 0 */
 var path = require('path');
 var webpack = require('webpack');
 
@@ -6,25 +7,25 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-    './index'
+    './index',
   ],
   output: {
     path: path.join(__dirname, 'static'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/static/',
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
   ],
   module: {
     loaders: [{
       test: /\.js$/,
       loaders: ['react-hot', 'babel'],
-      exclude: /node_modules/
+      exclude: /node_modules/,
     }, {
       test: /\.css$/,
-      loaders: ['style-loader', 'css-loader']
-    }]
-  }
+      loaders: ['style-loader', 'css-loader'],
+    }],
+  },
 };

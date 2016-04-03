@@ -1,0 +1,4 @@
+dist
+static
+node_modules
+components/prism.js

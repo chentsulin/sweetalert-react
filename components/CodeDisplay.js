@@ -1,9 +1,9 @@
-import React, { Component, findDOMNode } from 'react';
+import React, { Component } from 'react';
 import Prism from './prism';
 import './prism.css';
 
 
-var code =
+const code =
 `
 render() {
   return (
@@ -17,7 +17,7 @@ render() {
         show={this.state.show}
         title="Demo Complex"
         text="SweetAlert in React"
-        showCancelButton={true}
+        showCancelButton
         onConfirm={() => {
           console.log('confirm');
           this.setState({ show: false });
@@ -47,8 +47,9 @@ class CodeDisplay extends Component {
           boxSizing: 'border-box',
           height: 'inherit',
           margin: 0,
-          paddingLeft: 30
-        }}>
+          paddingLeft: 30,
+        }}
+        >
           <code className="language-javascript">{code}</code>
         </pre>
       </div>
