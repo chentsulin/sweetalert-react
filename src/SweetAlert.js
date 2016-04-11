@@ -21,7 +21,7 @@ const ALLOWS_KEYS = [
   'animation',
   'inputType',
   'inputPlaceholder',
-  'showLoaderOnConfirm'
+  'showLoaderOnConfirm',
 ];
 
 const REMOVED_KEYS = [
@@ -29,14 +29,14 @@ const REMOVED_KEYS = [
   'closeOnConfirm',
   'closeOnCancel',
   'allowOutsideClick',
-  'allowEscapeKey'
+  'allowEscapeKey',
 ];
 
 const OVERWRITE_PROPS = {
   closeOnConfirm: false,
   closeOnCancel: false,
   allowOutsideClick: false,
-  allowEscapeKey: false
+  allowEscapeKey: false,
 };
 
 // reference: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
@@ -63,7 +63,7 @@ const ALLOWS_INPUT_TYPES = [
   'text',
   'time',
   'url',
-  'week'
+  'week',
 ];
 
 export default class SweetAlert extends Component {
@@ -97,7 +97,7 @@ export default class SweetAlert extends Component {
     onCancel: PropTypes.func,
     onClose: PropTypes.func,
     onEscapeKey: PropTypes.func,
-    onOutsideClick: PropTypes.func
+    onOutsideClick: PropTypes.func,
   }
 
   static defaultProps = {
@@ -121,7 +121,7 @@ export default class SweetAlert extends Component {
     showLoaderOnConfirm: false,
 
     // custom option
-    show: false
+    show: false,
   }
 
   constructor(props, context) {
@@ -166,7 +166,7 @@ export default class SweetAlert extends Component {
     if (show) {
       swal({
         ...pick(props, ALLOWS_KEYS),
-        ...OVERWRITE_PROPS
+        ...OVERWRITE_PROPS,
       }, isConfirm => this.handleClick(isConfirm, onConfirm, onCancel));
       this._show = true;
       this.bindEscapeKey(onEscapeKey);
@@ -180,7 +180,7 @@ export default class SweetAlert extends Component {
       warning(
         props[key] === undefined,
         '%s has been removed from sweetalert-react, pass `show` props and use event hook instead.',
-        '`' + key + '`'
+        `\`${key}\``
       );
     });
   }
@@ -211,18 +211,18 @@ export default class SweetAlert extends Component {
   }
 
   bindEscapeKey(onEscapeKey) {
-    onEscapeKey && mousetrap.bind('esc', onEscapeKey);
+    if (onEscapeKey) mousetrap.bind('esc', onEscapeKey);
   }
 
   unbindEscapeKey(onEscapeKey) {
-    onEscapeKey && mousetrap.unbind('esc', onEscapeKey);
+    if (onEscapeKey) mousetrap.unbind('esc', onEscapeKey);
   }
 
   handleClick(isConfirm, onConfirm, onCancel) {
     if (isConfirm) {
-      onConfirm && onConfirm(isConfirm);
+      if (onConfirm) onConfirm(isConfirm);
     } else {
-      onCancel && onCancel();
+      if (onCancel) onCancel();
     }
   }
 
@@ -230,7 +230,7 @@ export default class SweetAlert extends Component {
     if (this._show) {
       swal.close();
       this.unbindEscapeKey(onEscapeKey);
-      onClose && onClose();
+      if (onClose) onClose();
       this._show = false;
     }
   }
