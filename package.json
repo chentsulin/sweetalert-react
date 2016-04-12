@@ -46,6 +46,7 @@
     "babel-eslint": "^6.0.2",
     "babel-jest": "^10.0.1",
     "babel-loader": "^6.2.4",
+    "enzyme": "^2.2.0",
     "eslint": "^2.7.0",
     "eslint-config-airbnb": "^6.2.0",
     "eslint-plugin-react": "^4.3.0",
@@ -67,17 +68,21 @@
     "react": "^0.14.0 || ^15.0.0-0"
   },
   "jest": {
+    "modulePathIgnorePatterns": [
+      "/examples/"
+    ],
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/sweetalert",
+      "<rootDir>/node_modules/enzyme",
       "<rootDir>/node_modules/lodash.*"
     ],
     "testFileExtensions": [
       "js"
     ],
     "moduleFileExtensions": [
-      "js"
+      "js",
+      "json"
     ]
   }
 }

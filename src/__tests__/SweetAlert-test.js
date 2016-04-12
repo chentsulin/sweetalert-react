@@ -1,22 +1,14 @@
-jest.dontMock('../src/SweetAlert');
-jest.dontMock('sweetalert');
-jest.dontMock('lodash.pick');
-
-require('babel-core/polyfill')
+jest.dontMock('../SweetAlert');
+jest.dontMock('warning');
 
 const React = require('react');
-const { render } = require('react-dom');
-const TestUtils = require('react-addons-test-utils');
-
-const {
-  renderIntoDocument,
-  Simulate
-} = TestUtils;
+const { mount } = require('enzyme');
+const sweetalert = require('sweetalert');
 
 describe('SweetAlert', () => {
   let SweetAlert;
   beforeEach(() => {
-    SweetAlert = require('../src/SweetAlert');
+    SweetAlert = require('../SweetAlert').default;
   });
 
   describe('propTypes', () => {
@@ -32,9 +24,8 @@ describe('SweetAlert', () => {
 
     it('should warning when title is not passed down to props', () => {
       spyOn(console, 'error');
-      renderIntoDocument(<SweetAlert />);
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toBe(
+      mount(<SweetAlert />);
+      expect(console.error).toHaveBeenCalledWith(
         'Warning: Failed propType: ' +
         'Required prop `title` was not specified in `SweetAlert`.'
       );
@@ -43,61 +34,53 @@ describe('SweetAlert', () => {
 
 
   describe('warning REMOVED_KEYS', () => {
-    it('should warning when REMOVED_KEYS:timer is passed down to props', () => {
+    beforeEach(() => {
       spyOn(console, 'error');
-      renderIntoDocument(<SweetAlert title="t" timer={60} />);
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toBe(
+    });
+
+    it('should warning when REMOVED_KEYS:timer is passed down to props', () => {
+      mount(<SweetAlert title="t" timer={60} />);
+      expect(console.error).toHaveBeenCalledWith(
         'Warning: `timer` has been removed from sweetalert-react, ' +
         'pass `show` props and use event hook instead.'
       );
     });
 
     it('should warning when REMOVED_KEYS:timer is passed down to props', () => {
-      spyOn(console, 'error');
-      renderIntoDocument(<SweetAlert title="t" timer={60} />);
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toBe(
+      mount(<SweetAlert title="t" timer={60} />);
+      expect(console.error).toHaveBeenCalledWith(
         'Warning: `timer` has been removed from sweetalert-react, ' +
         'pass `show` props and use event hook instead.'
       );
     });
 
     it('should warning when REMOVED_KEYS:closeOnConfirm is passed down to props', () => {
-      spyOn(console, 'error');
-      renderIntoDocument(<SweetAlert title="t" closeOnConfirm />);
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toBe(
+      mount(<SweetAlert title="t" closeOnConfirm />);
+      expect(console.error).toHaveBeenCalledWith(
         'Warning: `closeOnConfirm` has been removed from sweetalert-react, ' +
         'pass `show` props and use event hook instead.'
       );
     });
 
     it('should warning when REMOVED_KEYS:closeOnCancel is passed down to props', () => {
-      spyOn(console, 'error');
-      renderIntoDocument(<SweetAlert title="t" closeOnCancel />);
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toBe(
+      mount(<SweetAlert title="t" closeOnCancel />);
+      expect(console.error).toHaveBeenCalledWith(
         'Warning: `closeOnCancel` has been removed from sweetalert-react, ' +
         'pass `show` props and use event hook instead.'
       );
     });
 
     it('should warning when REMOVED_KEYS:allowOutsideClick is passed down to props', () => {
-      spyOn(console, 'error');
-      renderIntoDocument(<SweetAlert title="t" allowOutsideClick />);
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toBe(
+      mount(<SweetAlert title="t" allowOutsideClick />);
+      expect(console.error).toHaveBeenCalledWith(
         'Warning: `allowOutsideClick` has been removed from sweetalert-react, ' +
         'pass `show` props and use event hook instead.'
       );
     });
 
     it('should warning when REMOVED_KEYS:allowEscapeKey is passed down to props', () => {
-      spyOn(console, 'error');
-      renderIntoDocument(<SweetAlert title="t" allowEscapeKey />);
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toBe(
+      mount(<SweetAlert title="t" allowEscapeKey />);
+      expect(console.error).toHaveBeenCalledWith(
         'Warning: `allowEscapeKey` has been removed from sweetalert-react, ' +
         'pass `show` props and use event hook instead.'
       );
@@ -105,21 +88,17 @@ describe('SweetAlert', () => {
   });
 
   describe('should show prop works', () => {
-    it('description', () => {
+    pit('description', async () => {
       const container = document.createElement('div');
       container.id = 'root';
       document.body.appendChild(container);
-      render(
+      mount(
         <SweetAlert title="t" show={true} />,
         document.getElementById('root')
       );
-      waitsFor(
-        () => document.querySelector('.sweetalert'),
-        'SweetAlert should be shown',
-        3000
-      );
-    })
-  })
+      expect(sweetalert).toBeCalled();
+    });
+  });
 
   xit('should `onConfirm` works', () => {
     const callback = jest.genMockFunction();
@@ -127,15 +106,13 @@ describe('SweetAlert', () => {
       const container = document.createElement('div');
       container.id = 'root';
       document.body.appendChild(container);
-      render(
+      mount(
         <SweetAlert title="t" show={true} onConfirm={callback} />,
         document.getElementById('root')
       );
     });
 
     waitsFor(() => {
-      console.log(document
-        .querySelector('.sweetalert .confirm'))
       return document
         .querySelector('.sweetalert .confirm')
     }, 'The Value should be incremented', 5000);
@@ -157,10 +134,6 @@ describe('SweetAlert', () => {
   });
 
   describe('ESC', () => {
-    // body...
-  });
-
-  describe('Outside click', () => {
     // body...
   });
 });

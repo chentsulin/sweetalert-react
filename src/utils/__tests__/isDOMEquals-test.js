@@ -1,6 +1,6 @@
-jest.dontMock('../../src/utils/isDOMEquals');
+jest.dontMock('../isDOMEquals');
 
-const isDOMEquals = require('../../src/utils/isDOMEquals');
+const isDOMEquals = require('../isDOMEquals').default;
 
 describe('isDOMEquals', () => {
   it('should be true if dom equals', () => {

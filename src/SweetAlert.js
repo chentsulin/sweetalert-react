@@ -66,6 +66,16 @@ const ALLOWS_INPUT_TYPES = [
   'week',
 ];
 
+function warningRemoved(props) {
+  REMOVED_KEYS.forEach(key => {
+    warning(
+      props[key] === undefined,
+      '%s has been removed from sweetalert-react, pass `show` props and use event hook instead.',
+      `\`${key}\``
+    );
+  });
+}
+
 export default class SweetAlert extends Component {
   static propTypes = {
     // sweetalert option
@@ -109,7 +119,7 @@ export default class SweetAlert extends Component {
     showCancelButton: false,
     showConfirmButton: true,
     confirmButtonText: 'OK',
-    confirmButtonColor: '#AEDEF4',
+    confirmButtonColor: '#aedef4',
     cancelButtonText: 'Cancel',
     imageUrl: null,
     imageSize: '80x80',
@@ -161,7 +171,7 @@ export default class SweetAlert extends Component {
   }
 
   setupWithProps(props) {
-    this.warningRemoved(props);
+    warningRemoved(props);
     const { show, onConfirm, onCancel, onClose, onEscapeKey } = props;
     if (show) {
       swal({
@@ -173,16 +183,6 @@ export default class SweetAlert extends Component {
     } else {
       this.handleClose(onClose, onEscapeKey);
     }
-  }
-
-  warningRemoved(props) {
-    REMOVED_KEYS.forEach(key => {
-      warning(
-        props[key] === undefined,
-        '%s has been removed from sweetalert-react, pass `show` props and use event hook instead.',
-        `\`${key}\``
-      );
-    });
   }
 
   registerOutsideClickHandler(handler) {

@@ -1,7 +1,7 @@
-jest.dontMock('../../src/utils/outsideTargetHandlerFactory');
+jest.dontMock('../outsideTargetHandlerFactory');
 
-const outsideTargetHandlerFactory = require('../../src/utils/outsideTargetHandlerFactory');
-const isDOMEquals = require('../../src/utils/isDOMEquals');
+const outsideTargetHandlerFactory = require('../outsideTargetHandlerFactory').default;
+const isDOMEquals = require('../isDOMEquals').default;
 
 
 describe('outsideTargetHandlerFactory', () => {
