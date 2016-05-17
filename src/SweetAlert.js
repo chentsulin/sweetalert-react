@@ -166,8 +166,8 @@ export default class SweetAlert extends Component {
   }
 
   componentWillUnmount() {
-    this.disableOutsideClick();
-    this._outsideClickHandler = false;
+    this.unregisterOutsideClickHandler();
+    this.unbindEscapeKey();
   }
 
   setupWithProps(props) {
@@ -179,9 +179,9 @@ export default class SweetAlert extends Component {
         ...OVERWRITE_PROPS,
       }, isConfirm => this.handleClick(isConfirm, onConfirm, onCancel));
       this._show = true;
-      this.bindEscapeKey(onEscapeKey);
+      if (onEscapeKey) this.bindEscapeKey(onEscapeKey);
     } else {
-      this.handleClose(onClose, onEscapeKey);
+      this.handleClose(onClose);
     }
   }
 
@@ -200,22 +200,26 @@ export default class SweetAlert extends Component {
 
   enableOutsideClick() {
     const fn = this._outsideClickHandler;
-    document.addEventListener('mousedown', fn);
-    document.addEventListener('touchstart', fn);
+    if (fn) {
+      document.addEventListener('mousedown', fn);
+      document.addEventListener('touchstart', fn);
+    }
   }
 
   disableOutsideClick() {
     const fn = this._outsideClickHandler;
-    document.removeEventListener('mousedown', fn);
-    document.removeEventListener('touchstart', fn);
+    if (fn) {
+      document.removeEventListener('mousedown', fn);
+      document.removeEventListener('touchstart', fn);
+    }
   }
 
   bindEscapeKey(onEscapeKey) {
-    if (onEscapeKey) mousetrap.bind('esc', onEscapeKey);
+    mousetrap.bind('esc', onEscapeKey);
   }
 
-  unbindEscapeKey(onEscapeKey) {
-    if (onEscapeKey) mousetrap.unbind('esc', onEscapeKey);
+  unbindEscapeKey() {
+    mousetrap.unbind('esc');
   }
 
   handleClick(isConfirm, onConfirm, onCancel) {
@@ -226,10 +230,10 @@ export default class SweetAlert extends Component {
     }
   }
 
-  handleClose(onClose, onEscapeKey) {
+  handleClose(onClose) {
     if (this._show) {
       swal.close();
-      this.unbindEscapeKey(onEscapeKey);
+      this.unbindEscapeKey();
       if (onClose) onClose();
       this._show = false;
     }
