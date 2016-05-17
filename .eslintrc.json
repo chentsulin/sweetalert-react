@@ -4,10 +4,12 @@
   "env": {
     "browser": true,
     "node": true,
-    "jest": true
+    "jest": true,
+    "jasmine": true
   },
   "rules": {
-    "consistent-return": 0
+    "consistent-return": 0,
+    "no-underscore-dangle": 0
   },
   "plugins": [
     "react"

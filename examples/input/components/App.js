@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      show: false
+      show: false,
     };
   }
 
@@ -23,7 +23,7 @@ class App extends Component {
           inputType="password"
           inputPlaceholder="password"
           onConfirm={(inputValue) => {
-            console.log(inputValue);
+            console.log(inputValue); // eslint-disable-line no-console
             this.setState({ show: false });
           }}
         />

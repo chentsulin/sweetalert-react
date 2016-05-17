@@ -1,24 +1,22 @@
-'use strict';
-
-var webpack = require('webpack');
+const webpack = require('webpack');
 
 module.exports = {
   module: {
     loaders: [
-      { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ }
-    ]
+      { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ },
+    ],
   },
   output: {
     library: 'Redux',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
   },
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['', '.js'],
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
-    })
-  ]
+      'process.env.NODE_ENV': JSON.stringify('development'),
+    }),
+  ],
 };

@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      show: false
+      show: false,
     };
   }
 
@@ -20,13 +20,13 @@ class App extends Component {
           title="Demo Complex"
           type="success"
           text="SweetAlert in React"
-          showCancelButton={true}
+          showCancelButton
           onConfirm={() => {
-            console.log('confirm');
+            console.log('confirm'); // eslint-disable-line no-console
             this.setState({ show: false });
           }}
           onCancel={() => {
-            console.log('cancel');
+            console.log('cancel'); // eslint-disable-line no-console
             this.setState({ show: false });
           }}
           onEscapeKey={() => this.setState({ show: false })}

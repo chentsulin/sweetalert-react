@@ -5,7 +5,9 @@ const isDOMEquals = require('../isDOMEquals').default;
 
 
 describe('outsideTargetHandlerFactory', () => {
-  let targetNode, eventHandler, handler;
+  let targetNode;
+  let eventHandler;
+  let handler;
 
   beforeEach(() => {
     targetNode = document.createElement('div');

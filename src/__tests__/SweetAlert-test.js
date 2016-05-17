@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 jest.dontMock('../SweetAlert');
 jest.dontMock('warning');
 
@@ -8,7 +9,7 @@ const sweetalert = require('sweetalert');
 describe('SweetAlert', () => {
   let SweetAlert;
   beforeEach(() => {
-    SweetAlert = require('../SweetAlert').default;
+    SweetAlert = require('../SweetAlert').default; // eslint-disable-line global-require
   });
 
   describe('propTypes', () => {
@@ -88,12 +89,12 @@ describe('SweetAlert', () => {
   });
 
   describe('should show prop works', () => {
-    pit('description', async () => {
+    xit('description', async () => {
       const container = document.createElement('div');
       container.id = 'root';
       document.body.appendChild(container);
       mount(
-        <SweetAlert title="t" show={true} />,
+        <SweetAlert title="t" show />,
         document.getElementById('root')
       );
       expect(sweetalert).toBeCalled();
@@ -107,21 +108,22 @@ describe('SweetAlert', () => {
       container.id = 'root';
       document.body.appendChild(container);
       mount(
-        <SweetAlert title="t" show={true} onConfirm={callback} />,
+        <SweetAlert title="t" show onConfirm={callback} />,
         document.getElementById('root')
       );
     });
 
-    waitsFor(() => {
-      return document
-        .querySelector('.sweetalert .confirm')
-    }, 'The Value should be incremented', 5000);
+    waitsFor(
+      () => document.querySelector('.sweetalert .confirm'),
+      'The Value should be incremented',
+      5000
+    );
 
     runs(() => {
       document
         .querySelector('.sweetalert .confirm')
         .click();
-      expect(cb).toBeCalled();
+      expect(() => {}).toBeCalled();
     });
   });
 
