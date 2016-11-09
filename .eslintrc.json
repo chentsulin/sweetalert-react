@@ -8,10 +8,19 @@
     "jasmine": true
   },
   "rules": {
-    "consistent-return": 0,
-    "no-underscore-dangle": 0
-  },
-  "plugins": [
-    "react"
-  ]
+    "arrow-parens": ["error", "as-needed"],
+    "class-methods-use-this": "off",
+    "comma-dangle": "off",
+    "consistent-return": "off",
+    "no-underscore-dangle": "off",
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": [
+        "**/__tests__/**.js",
+        "**/webpack.config.js",
+        "webpack.config.*.js"
+      ],
+      "optionalDependencies": false
+    }],
+    "react/jsx-filename-extension": "off"
+  }
 }

@@ -7,7 +7,7 @@ import isDOMEquals from './isDOMEquals';
  * @return {Boolean}
  */
 export default function outsideTargetHandlerFactory(targetNode, eventHandler) {
-  return (evt) => {
+  return evt => {
     evt.stopPropagation();
     let current = evt.target;
     let found = false;

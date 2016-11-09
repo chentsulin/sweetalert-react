@@ -77,6 +77,7 @@ function warningRemoved(props) {
 }
 
 export default class SweetAlert extends Component {
+  /* eslint-disable react/no-unused-prop-types */
   static propTypes = {
     // sweetalert option
     title: PropTypes.string.isRequired,
@@ -108,7 +109,8 @@ export default class SweetAlert extends Component {
     onClose: PropTypes.func,
     onEscapeKey: PropTypes.func,
     onOutsideClick: PropTypes.func,
-  }
+  };
+  /* eslint-enable react/no-unused-prop-types */
 
   static defaultProps = {
     // sweetalert option
@@ -132,7 +134,7 @@ export default class SweetAlert extends Component {
 
     // custom option
     show: false,
-  }
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -226,7 +228,7 @@ export default class SweetAlert extends Component {
     if (isConfirm) {
       if (onConfirm) onConfirm(isConfirm);
     } else {
-      if (onCancel) onCancel();
+      if (onCancel) onCancel(); // eslint-disable-line no-lonely-if
     }
   }
 

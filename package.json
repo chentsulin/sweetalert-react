@@ -8,9 +8,9 @@
   "scripts": {
     "clean": "rimraf lib dist coverage",
     "lint": "eslint .",
-    "test": "BABEL_JEST_STAGE=0 jest",
+    "test": "jest",
     "test:watch": "npm test -- --watch",
-    "test:cov": "babel-node $(npm bin)/isparta cover $(npm bin)/_mocha -- --recursive",
+    "test:cov": "npm test -- -- --coverage",
     "check": "npm run lint && npm run test ",
     "build:lib": "babel src --out-dir lib",
     "build:umd": "webpack src/SweetAlert.js dist/sweetalert-react.js --config webpack.config.development.js",
@@ -41,50 +41,37 @@
     "react-component"
   ],
   "devDependencies": {
-    "babel-cli": "^6.8.0",
-    "babel-core": "^6.8.0",
-    "babel-eslint": "^6.0.4",
-    "babel-jest": "^12.0.2",
-    "babel-loader": "^6.2.4",
-    "enzyme": "^2.3.0",
-    "eslint": "^2.10.2",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.0",
+    "babel-jest": "^16.0.0",
+    "babel-loader": "^6.2.7",
+    "enzyme": "^2.5.1",
+    "eslint": "^3.9.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^1.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.6.0",
-    "isparta": "^4.0.0",
-    "jest-cli": "^12.0.2",
-    "react": "^15.0.2",
-    "react-addons-test-utils": "^15.0.2",
-    "react-dom": "^15.0.2",
-    "rimraf": "^2.5.2",
-    "webpack": "^1.13.0"
+    "jest-cli": "^16.0.2",
+    "react": "^15.3.2",
+    "react-addons-test-utils": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "rimraf": "^2.5.4",
+    "webpack": "^1.13.3"
   },
   "dependencies": {
-    "lodash.pick": "^4.2.1",
-    "mousetrap": "^1.5.3",
+    "lodash.pick": "^4.4.0",
+    "mousetrap": "^1.6.0",
     "sweetalert": "^1.1.3",
-    "warning": "^2.1.0"
+    "warning": "^3.0.0"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0-0"
   },
   "jest": {
-    "modulePathIgnorePatterns": [
-      "/examples/"
-    ],
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/enzyme",
-      "<rootDir>/node_modules/lodash.*"
-    ],
-    "testFileExtensions": [
-      "js"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "json"
+    "verbose": true,
+    "collectCoverageFrom": [
+      "src/**/*.js"
     ]
   }
 }

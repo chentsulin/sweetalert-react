@@ -1,17 +1,12 @@
-/* eslint no-console: 0 */
-jest.dontMock('../SweetAlert');
-jest.dontMock('warning');
+/* eslint-disable no-console */
 
-const React = require('react');
-const { mount } = require('enzyme');
-const sweetalert = require('sweetalert');
+import React from 'react';
+import { mount } from 'enzyme';
+import sweetalert from 'sweetalert';
+
+import SweetAlert from '../SweetAlert';
 
 describe('SweetAlert', () => {
-  let SweetAlert;
-  beforeEach(() => {
-    SweetAlert = require('../SweetAlert').default; // eslint-disable-line global-require
-  });
-
   describe('propTypes', () => {
     it('should return error when imageSize invalid', () => {
       expect(SweetAlert.propTypes.imageSize({ imageSize: '8080' }, 'imageSize'))
@@ -27,7 +22,7 @@ describe('SweetAlert', () => {
       spyOn(console, 'error');
       mount(<SweetAlert />);
       expect(console.error).toHaveBeenCalledWith(
-        'Warning: Failed propType: ' +
+        'Warning: Failed prop type: ' +
         'Required prop `title` was not specified in `SweetAlert`.'
       );
     });
