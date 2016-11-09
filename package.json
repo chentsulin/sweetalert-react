@@ -72,6 +72,9 @@
     "verbose": true,
     "collectCoverageFrom": [
       "src/**/*.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/lib"
     ]
   }
 }
