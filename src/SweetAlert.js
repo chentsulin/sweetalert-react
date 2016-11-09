@@ -20,6 +20,7 @@ const ALLOWS_KEYS = [
   'html',
   'animation',
   'inputType',
+  'inputValue',
   'inputPlaceholder',
   'showLoaderOnConfirm',
 ];
