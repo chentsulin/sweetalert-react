@@ -1,8 +1,8 @@
-jest.dontMock('../outsideTargetHandlerFactory');
+import outsideTargetHandlerFactory from '../outsideTargetHandlerFactory';
 
-const outsideTargetHandlerFactory = require('../outsideTargetHandlerFactory').default;
+jest.mock('../isDOMEquals');
+
 const isDOMEquals = require('../isDOMEquals').default;
-
 
 describe('outsideTargetHandlerFactory', () => {
   let targetNode;
@@ -11,14 +11,14 @@ describe('outsideTargetHandlerFactory', () => {
 
   beforeEach(() => {
     targetNode = document.createElement('div');
-    eventHandler = jest.genMockFunction();
+    eventHandler = jest.fn();
     handler = outsideTargetHandlerFactory(targetNode, eventHandler);
   });
 
   it('handler should call stopPropagation', () => {
     const event = {};
     event.target = { parentNode: null };
-    event.stopPropagation = jest.genMockFunction();
+    event.stopPropagation = jest.fn();
     handler(event);
     expect(event.stopPropagation).toBeCalled();
   });

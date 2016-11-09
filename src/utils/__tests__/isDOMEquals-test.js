@@ -1,6 +1,4 @@
-jest.dontMock('../isDOMEquals');
-
-const isDOMEquals = require('../isDOMEquals').default;
+import isDOMEquals from '../isDOMEquals';
 
 describe('isDOMEquals', () => {
   it('should be true if dom equals', () => {

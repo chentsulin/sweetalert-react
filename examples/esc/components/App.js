@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SweetAlert from 'sweetalert-react';
+import SweetAlert from 'sweetalert-react'; // eslint-disable-line import/no-extraneous-dependencies
 import 'sweetalert/dist/sweetalert.css';
 
 

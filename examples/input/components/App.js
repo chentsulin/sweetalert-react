@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SweetAlert from 'sweetalert-react';
+import SweetAlert from 'sweetalert-react'; // eslint-disable-line import/no-extraneous-dependencies
 import 'sweetalert/dist/sweetalert.css';
 
 
@@ -22,7 +22,7 @@ class App extends Component {
           type="input"
           inputType="password"
           inputPlaceholder="password"
-          onConfirm={(inputValue) => {
+          onConfirm={inputValue => {
             console.log(inputValue); // eslint-disable-line no-console
             this.setState({ show: false });
           }}
