@@ -2,9 +2,11 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import sweetalert from 'sweetalert';
+import swal from 'sweetalert';
 
 import SweetAlert from '../SweetAlert';
+
+jest.mock('sweetalert');
 
 let _error;
 
@@ -16,6 +18,7 @@ beforeEach(() => {
 afterEach(() => {
   console.error = _error;
   _error = null;
+  swal.mockClear();
 });
 
 describe('propTypes', () => {
@@ -90,41 +93,27 @@ describe('warning REMOVED_KEYS', () => {
 });
 
 describe('should show prop works', () => {
-  xit('description', async () => {
-    const container = document.createElement('div');
-    container.id = 'root';
-    document.body.appendChild(container);
+  it('should call sweetalert when show is true', async () => {
     mount(
-      <SweetAlert title="t" show />,
-      document.getElementById('root')
+      <SweetAlert title="t" show />
     );
-    expect(sweetalert).toBeCalled();
+    expect(swal).toBeCalled();
+  });
+
+  it('should call sweetalert when show is false', async () => {
+    mount(
+      <SweetAlert title="t" />
+    );
+    expect(swal).not.toBeCalled();
   });
 });
 
-xit('should `onConfirm` works', () => {
-  const callback = jest.genMockFunction();
-  runs(() => {
-    const container = document.createElement('div');
-    container.id = 'root';
-    document.body.appendChild(container);
+describe('`onConfirm`', () => {
+  xit('should  works', () => {
+    const callback = jest.fn();
     mount(
-      <SweetAlert title="t" show onConfirm={callback} />,
-      document.getElementById('root')
+      <SweetAlert title="t" show onConfirm={callback} />
     );
-  });
-
-  waitsFor(
-    () => document.querySelector('.sweetalert .confirm'),
-    'The Value should be incremented',
-    5000
-  );
-
-  runs(() => {
-    document
-      .querySelector('.sweetalert .confirm')
-      .click();
-    expect(() => {}).toBeCalled();
   });
 });
 
