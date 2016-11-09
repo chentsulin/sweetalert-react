@@ -41,6 +41,32 @@ describe('propTypes', () => {
   });
 });
 
+describe('allow ALLOWS_KEYS as props', () => {
+  it('should not log error when props pass down', () => {
+    mount(
+      <SweetAlert
+        title="t"
+        text="some text"
+        type="warning"
+        customClass="custom-class"
+        showCancelButton
+        showConfirmButton
+        confirmButtonText="confirm"
+        confirmButtonColor="green"
+        cancelButtonText="cannel"
+        imageUrl=""
+        imageSize="160x160"
+        html
+        animation
+        inputType="text"
+        inputValue="default"
+        inputPlaceholder="placeholder"
+        showLoaderOnConfirm
+      />
+    );
+    expect(console.error).not.toBeCalled();
+  });
+});
 
 describe('warning REMOVED_KEYS', () => {
   it('should warning when REMOVED_KEYS:timer is passed down to props', () => {
