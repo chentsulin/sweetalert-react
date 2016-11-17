@@ -36,7 +36,7 @@ describe('propTypes', () => {
     mount(<SweetAlert />);
     const message = console.error.mock.calls[0][0];
     expect(message).toMatch(
-      /Required prop `title` was not specified in `SweetAlert`/
+      /Failed prop type: The prop `title` is marked as required in `SweetAlert`/
     );
   });
 });

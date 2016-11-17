@@ -115,7 +115,6 @@ export default class SweetAlert extends Component {
 
   static defaultProps = {
     // sweetalert option
-    title: null,
     text: null,
     type: null,
     customClass: null,
