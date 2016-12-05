@@ -2,7 +2,7 @@
   "name": "sweetalert-react",
   "version": "0.4.5",
   "description": "Using sweetalert in React",
-  "main": "lib/SweetAlert.js",
+  "main": "lib/index.js",
   "license": "MIT",
   "repository": "chentsulin/sweetalert-react",
   "scripts": {
