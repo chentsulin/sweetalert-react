@@ -3,11 +3,11 @@
 [![NPM version][npm-image]][npm-url]
 [![Dependency Status][david_img]][david_site]
 
-> Using sweetalert in React
+> Declarative SweetAlert in React
 
 ## Introduction
 
-`SweetAlert` is a wrapped `sweetalert` implement with React style lifecycle. It have a `show` prop to determinate that alert should be displayed or not, and `onConfirm`, `onCancel`, `onClose`, `onEscapeKey` and `onOutsideClick` props to have more controls on alert element event.
+`sweetalert-react` is a wrapped `sweetalert` implement with declarative React style component api. There is a `show` prop on it to determinate that alert should be displayed or not, and `onConfirm`, `onCancel`, `onClose`, `onEscapeKey` and `onOutsideClick` props to have more controls on alert element event.
 
 ## Install
 
@@ -64,4 +64,3 @@ MIT © [C.T. Lin](https://github.com/chentsulin/sweetalert-react)
 [coveralls-url]: https://coveralls.io/r/chentsulin/sweetalert-react?branch=master
 [david_img]: https://david-dm.org/chentsulin/sweetalert-react.svg
 [david_site]: https://david-dm.org/chentsulin/sweetalert-react
-
