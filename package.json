@@ -1,6 +1,6 @@
 {
   "name": "sweetalert-react",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "Using sweetalert in React",
   "main": "lib/index.js",
   "license": "MIT",
