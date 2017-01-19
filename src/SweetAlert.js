@@ -97,7 +97,10 @@ export default class SweetAlert extends Component {
       }
     },
     html: PropTypes.bool,
-    animation: PropTypes.bool,
+    animation: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.oneOf(['pop', 'slide-from-top', 'slide-from-bottom']),
+    ]),
     inputType: PropTypes.oneOf(ALLOWS_INPUT_TYPES),
     inputPlaceholder: PropTypes.string,
     inputValue: PropTypes.string,
