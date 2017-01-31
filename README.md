@@ -52,6 +52,12 @@ Checkout full examples [here](./examples).
 
 All of other options can be passed as props, see them in [Configuare Section in sweetalert document](http://t4t5.github.io/sweetalert/)
 
+## FAQ
+
+### Q: My alert didn't close when 'go back' or 'go forward' in browser
+
+You can listen history change and set show: false when it mounted. See full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/history-change/components/App.js).
+
 ## License
 
 MIT © [C.T. Lin](https://github.com/chentsulin/sweetalert-react)
