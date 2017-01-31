@@ -56,7 +56,7 @@ All of other options can be passed as props, see them in [Configuare Section in 
 
 ### Q: My alert didn't close when 'go back' or 'go forward' in browser
 
-You can listen history change and set show: false when it mounted. See full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/history-change/components/App.js).
+You can listen history change and set `show: false` when it mounted. See full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/history-change/components/App.js).
 
 ## License
 
