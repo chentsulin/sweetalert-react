@@ -7,7 +7,7 @@ module.exports = {
     ],
   },
   output: {
-    library: 'Redux',
+    library: 'ReactSweetAlert',
     libraryTarget: 'umd',
   },
   resolve: {
