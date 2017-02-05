@@ -76,6 +76,10 @@ import { renderToStaticMarkup } from 'react-dom/server';
 
 See full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/component-as-body/components/App.js). Thanks @ArkadyB for discovering the approach in [issue #53](https://github.com/chentsulin/sweetalert-react/issues/53).
 
+## Relevant Projects
+
+- [react-redux-sweetalert](https://github.com/chentsulin/react-redux-sweetalert)
+
 ## License
 
 MIT © [C.T. Lin](https://github.com/chentsulin/sweetalert-react)
