@@ -1,3 +1,7 @@
+0.4.8 / 2017-02-05
+==================
+- [fix] `umd` build
+
 0.4.7 / 2017-01-19
 ==================
 - [fix] allow `animation` prop with `pop`, `slide-from-top`, `slide-from-bottom` value. [#50](https://github.com/chentsulin/sweetalert-react/pull/50).
