@@ -58,6 +58,24 @@ All of other options can be passed as props, see them in [Configuare Section in 
 
 You can listen history change and set `show: false` when it mounted. See full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/history-change/components/App.js).
 
+### Q: Can I use react component to render html for popup body?
+
+Sure, you can achieve it with `ReactDOMServer.renderToStaticMarkup`:
+
+```js
+import { renderToStaticMarkup } from 'react-dom/server';
+
+<SweetAlert
+  show={this.state.show}
+  title="Demo"
+  html
+  text={renderToStaticMarkup(<HelloWorld />)}
+  onConfirm={() => this.setState({ show: false })}
+/>
+```
+
+See full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/component-as-body/components/App.js). Thanks @ArkadyB for discovering the approach in [issue #53](https://github.com/chentsulin/sweetalert-react/issues/53).
+
 ## License
 
 MIT © [C.T. Lin](https://github.com/chentsulin/sweetalert-react)
