@@ -228,7 +228,7 @@ export default class SweetAlert extends Component {
   }
 
   handleClick(isConfirm, onConfirm, onCancel) {
-    if (isConfirm) {
+    if (isConfirm !== false) {
       if (onConfirm) onConfirm(isConfirm);
     } else {
       if (onCancel) onCancel(); // eslint-disable-line no-lonely-if
