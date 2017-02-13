@@ -1,0 +1,40 @@
+{
+  "name": "sweetalert-react-example",
+  "version": "1.0.0",
+  "description": "sweetalert-react-example-description",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chentsulin/sweetalert-react.git"
+  },
+  "keywords": [
+    "sweetalert-react"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chentsulin/sweetalert-react/issues"
+  },
+  "homepage": "https://github.com/chentsulin/sweetalert-react",
+  "dependencies": {
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "sweetalert": "^1.1.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.7.6",
+    "babel-loader": "^6.2.4",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "css-loader": "^0.23.1",
+    "node-libs-browser": "^1.0.0",
+    "react-hot-loader": "^1.3.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.12.15",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
