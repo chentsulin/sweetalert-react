@@ -1,3 +1,7 @@
+0.4.9 / 2017-02-13
+==================
+- [fix] clicked comfirm button with empty string should trigger onConfirm instead of onCancel. [#56](https://github.com/chentsulin/sweetalert-react/pull/56).
+
 0.4.8 / 2017-02-05
 ==================
 - [fix] `umd` build
