@@ -1,3 +1,7 @@
+0.4.10 / 2017-04-24
+==================
+- [deps] Removes prototype reference which raises warnings in react 15.5 [#71](https://github.com/chentsulin/sweetalert-react/pull/71).
+
 0.4.9 / 2017-02-13
 ==================
 - [fix] clicked comfirm button with empty string should trigger onConfirm instead of onCancel. [#56](https://github.com/chentsulin/sweetalert-react/pull/56).
