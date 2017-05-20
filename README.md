@@ -1,5 +1,7 @@
 # sweetalert-react
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/chentsulin/sweetalert-react.svg)](https://greenkeeper.io/)
+
 [![NPM version][npm-image]][npm-url]
 [![Dependency Status][david_img]][david_site]
 
