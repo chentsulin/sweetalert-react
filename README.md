@@ -1,4 +1,4 @@
-# sweetalert-react
+# sweetalert2-react
 
 [![NPM version][npm-image]][npm-url]
 [![Dependency Status][david_img]][david_site]
@@ -14,14 +14,14 @@ This package is forked from https://github.com/chentsulin/sweetalert-react and a
 ## Install
 
 ```
-$ npm install sweetalert-react
+$ npm install sweetalert2-react
 ```
 
 ## Usage
 
 ```js
 import React, { Component } from 'react';
-import SweetAlert from 'sweetalert-react';
+import SweetAlert from 'sweetalert2-react';
 
 // ...
 
