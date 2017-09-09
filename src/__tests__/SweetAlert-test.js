@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 import SweetAlert from '../SweetAlert';
 

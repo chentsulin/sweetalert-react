@@ -1,10 +1,10 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
-import swal from 'sweetalert';
-import pick from 'lodash.pick';
-import mousetrap from 'mousetrap';
-import warning from 'warning';
-import outsideTargetHandlerFactory from './utils/outsideTargetHandlerFactory';
+import { Component } from 'react'
+import PropTypes from 'prop-types'
+import swal from 'sweetalert2'
+import pick from 'lodash.pick'
+import mousetrap from 'mousetrap'
+import warning from 'warning'
+import outsideTargetHandlerFactory from './utils/outsideTargetHandlerFactory'
 
 const ALLOWS_KEYS = [
   'title',
@@ -15,31 +15,26 @@ const ALLOWS_KEYS = [
   'showConfirmButton',
   'confirmButtonText',
   'confirmButtonColor',
+  'confirmButtonClass',
+  'cancelButtonClass',
   'cancelButtonText',
+  'buttonsStyling',
+  'reverseButtons',
   'imageUrl',
-  'imageSize',
   'html',
   'animation',
-  'inputType',
+  // 'inputType',
   'inputValue',
   'inputPlaceholder',
   'showLoaderOnConfirm',
-];
+]
 
-const REMOVED_KEYS = [
-  'timer',
-  'closeOnConfirm',
-  'closeOnCancel',
-  'allowOutsideClick',
-  'allowEscapeKey',
-];
+const REMOVED_KEYS = ['timer', 'allowOutsideClick', 'allowEscapeKey']
 
 const OVERWRITE_PROPS = {
-  closeOnConfirm: false,
-  closeOnCancel: false,
   allowOutsideClick: false,
   allowEscapeKey: false,
-};
+}
 
 // reference: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
 const ALLOWS_INPUT_TYPES = [
@@ -66,16 +61,16 @@ const ALLOWS_INPUT_TYPES = [
   'time',
   'url',
   'week',
-];
+]
 
 function warningRemoved(props) {
   REMOVED_KEYS.forEach(key => {
     warning(
       props[key] === undefined,
       '%s has been removed from sweetalert-react, pass `show` props and use event hook instead.',
-      `\`${key}\``
-    );
-  });
+      `\`${key}\``,
+    )
+  })
 }
 
 export default class SweetAlert extends Component {
@@ -90,19 +85,18 @@ export default class SweetAlert extends Component {
     showConfirmButton: PropTypes.bool,
     confirmButtonText: PropTypes.string,
     confirmButtonColor: PropTypes.string,
+    confirmButtonClass: PropTypes.string,
     cancelButtonText: PropTypes.string,
+    cancelButtonClass: PropTypes.string,
+    reverseButtons: PropTypes.bool,
+    buttonsStyling: PropTypes.bool,
     imageUrl: PropTypes.string,
-    imageSize(props, propName) {
-      if (!/^[1-9]\d*x[1-9]\d*/.test(props[propName])) {
-        return new Error('imageSize should have the format like this: "80x80"');
-      }
-    },
     html: PropTypes.bool,
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(['pop', 'slide-from-top', 'slide-from-bottom']),
     ]),
-    inputType: PropTypes.oneOf(ALLOWS_INPUT_TYPES),
+    // inputType: PropTypes.oneOf(ALLOWS_INPUT_TYPES),
     inputPlaceholder: PropTypes.string,
     inputValue: PropTypes.string,
     showLoaderOnConfirm: PropTypes.bool,
@@ -114,7 +108,7 @@ export default class SweetAlert extends Component {
     onClose: PropTypes.func,
     onEscapeKey: PropTypes.func,
     onOutsideClick: PropTypes.func,
-  };
+  }
   /* eslint-enable react/no-unused-prop-types */
 
   static defaultProps = {
@@ -127,125 +121,145 @@ export default class SweetAlert extends Component {
     confirmButtonText: 'OK',
     confirmButtonColor: '#aedef4',
     cancelButtonText: 'Cancel',
+    cancelButtonClass: null,
+    confirmButtonClass: null,
+    buttonsStyling: true,
+    reverseButtons: false,
     imageUrl: null,
-    imageSize: '80x80',
     html: false,
     animation: true,
-    inputType: 'text',
+    // inputType: 'text',
     inputPlaceholder: null,
     inputValue: null,
     showLoaderOnConfirm: false,
 
     // custom option
     show: false,
-  };
+  }
 
   constructor(props, context) {
-    super(props, context);
-    this._show = false;
+    super(props, context)
+    this._show = false
   }
 
   componentDidMount() {
-    this.setupWithProps(this.props);
+    this.setupWithProps(this.props)
 
     if (this.props.onOutsideClick) {
-      this.registerOutsideClickHandler(this.props.onOutsideClick);
+      this.registerOutsideClickHandler(this.props.onOutsideClick)
     }
   }
 
   componentWillReceiveProps(props) {
-    this.setupWithProps(props);
+    this.setupWithProps(props)
 
-    const oldOutsideClickHandler = this.props.onOutsideClick;
-    const newOutsideClickHandler = props.onOutsideClick;
+    const oldOutsideClickHandler = this.props.onOutsideClick
+    const newOutsideClickHandler = props.onOutsideClick
 
     if (oldOutsideClickHandler !== newOutsideClickHandler) {
       if (oldOutsideClickHandler && newOutsideClickHandler) {
-        this.unregisterOutsideClickHandler();
-        this.registerOutsideClickHandler(newOutsideClickHandler);
+        this.unregisterOutsideClickHandler()
+        this.registerOutsideClickHandler(newOutsideClickHandler)
       } else if (oldOutsideClickHandler && !newOutsideClickHandler) {
-        this.unregisterOutsideClickHandler();
-      } else if ((!oldOutsideClickHandler) && newOutsideClickHandler) {
-        this.registerOutsideClickHandler(newOutsideClickHandler);
+        this.unregisterOutsideClickHandler()
+      } else if (!oldOutsideClickHandler && newOutsideClickHandler) {
+        this.registerOutsideClickHandler(newOutsideClickHandler)
       }
     }
   }
 
   componentWillUnmount() {
-    this.unregisterOutsideClickHandler();
-    this.unbindEscapeKey();
+    this.unregisterOutsideClickHandler()
+    this.unbindEscapeKey()
   }
 
   setupWithProps(props) {
-    warningRemoved(props);
-    const { show, onConfirm, onCancel, onClose, onEscapeKey } = props;
+    warningRemoved(props)
+    const { show, onConfirm, onCancel, onClose, onEscapeKey } = props
     if (show) {
-      swal({
-        ...pick(props, ALLOWS_KEYS),
-        ...OVERWRITE_PROPS,
-      }, isConfirm => this.handleClick(isConfirm, onConfirm, onCancel));
-      this._show = true;
-      if (onEscapeKey) this.bindEscapeKey(onEscapeKey);
+      swal(
+        {
+          ...pick(props, ALLOWS_KEYS),
+          ...OVERWRITE_PROPS,
+        }).then(
+          () => {
+            this.handleClickConfirm(onConfirm)
+          },
+          (dismiss) => {
+            this.handleClickCancel(onCancel, dismiss)
+          },
+        )
+      this._show = true
+      if (onEscapeKey) this.bindEscapeKey(onEscapeKey)
     } else {
-      this.handleClose(onClose);
+      this.handleClose(onClose)
     }
   }
 
   registerOutsideClickHandler(handler) {
     this._outsideClickHandler = outsideTargetHandlerFactory(
       document.getElementsByClassName('sweet-alert')[0],
-      handler
-    );
-    this.enableOutsideClick();
+      handler,
+    )
+    this.enableOutsideClick()
   }
 
   unregisterOutsideClickHandler() {
-    this.disableOutsideClick();
-    this._outsideClickHandler = null;
+    this.disableOutsideClick()
+    this._outsideClickHandler = null
   }
 
   enableOutsideClick() {
-    const fn = this._outsideClickHandler;
+    const fn = this._outsideClickHandler
     if (fn) {
-      document.addEventListener('mousedown', fn);
-      document.addEventListener('touchstart', fn);
+      document.addEventListener('mousedown', fn)
+      document.addEventListener('touchstart', fn)
     }
   }
 
   disableOutsideClick() {
-    const fn = this._outsideClickHandler;
+    const fn = this._outsideClickHandler
     if (fn) {
-      document.removeEventListener('mousedown', fn);
-      document.removeEventListener('touchstart', fn);
+      document.removeEventListener('mousedown', fn)
+      document.removeEventListener('touchstart', fn)
     }
   }
 
   bindEscapeKey(onEscapeKey) {
-    mousetrap.bind('esc', onEscapeKey);
+    mousetrap.bind('esc', onEscapeKey)
   }
 
   unbindEscapeKey() {
-    mousetrap.unbind('esc');
+    mousetrap.unbind('esc')
   }
 
-  handleClick(isConfirm, onConfirm, onCancel) {
-    if (isConfirm !== false) {
-      if (onConfirm) onConfirm(isConfirm);
-    } else {
-      if (onCancel) onCancel(); // eslint-disable-line no-lonely-if
+  // if (isConfirm !== false) {
+  //   if (onConfirm) onConfirm(isConfirm);
+  // } else {
+  //   if (onCancel) onCancel(); // eslint-disable-line no-lonely-if
+
+  handleClickConfirm(onConfirm) {
+    if (onConfirm) {
+      onConfirm()
+    }
+  }
+
+  handleClickCancel(onCancel) {
+    if (onCancel) {
+      onCancel()
     }
   }
 
   handleClose(onClose) {
     if (this._show) {
-      swal.close();
-      this.unbindEscapeKey();
-      if (onClose) onClose();
-      this._show = false;
+      swal.close()
+      this.unbindEscapeKey()
+      if (onClose) onClose()
+      this._show = false
     }
   }
 
   render() {
-    return null;
+    return null
   }
 }
