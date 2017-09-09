@@ -7,6 +7,8 @@
 
 ## Introduction
 
+This package is forked from https://github.com/chentsulin/sweetalert-react and adopted for https://github.com/limonte/sweetalert2
+
 `sweetalert-react` is a wrapped `sweetalert` implement with declarative React style component api. There is a `show` prop on it to determinate that alert should be displayed or not, and `onConfirm`, `onCancel`, `onClose`, `onEscapeKey` and `onOutsideClick` props to have more controls on alert element event.
 
 ## Install

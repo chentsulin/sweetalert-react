@@ -233,11 +233,6 @@ export default class SweetAlert extends Component {
     mousetrap.unbind('esc')
   }
 
-  // if (isConfirm !== false) {
-  //   if (onConfirm) onConfirm(isConfirm);
-  // } else {
-  //   if (onCancel) onCancel(); // eslint-disable-line no-lonely-if
-
   handleClickConfirm(onConfirm) {
     if (onConfirm) {
       onConfirm()

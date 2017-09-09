@@ -1,10 +1,10 @@
 {
   "name": "sweetalert2-react",
-  "version": "0.4.10",
-  "description": "Declarative SweetAlert in React",
+  "version": "0.5.0",
+  "description": "Declarative SweetAlert 2 in React",
   "main": "lib/index.js",
   "license": "MIT",
-  "repository": "chentsulin/sweetalert-react",
+  "repository": "alex-shamshurin/sweetalert2-react",
   "scripts": {
     "clean": "rimraf lib dist coverage",
     "lint": "eslint .",
@@ -22,9 +22,9 @@
     "prepublish": "npm run clean && npm run build"
   },
   "author": {
-    "name": "C.T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "github.com/chentsulin/sweetalert-react"
+    "name": "Shamshurin Alexander",
+    "email": "shamshurin.alexander@gmail.com",
+    "url": "github.com/alex-shamshurin/sweetalert2-react"
   },
   "engines": {
     "node": ">=0.10.0"
