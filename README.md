@@ -9,8 +9,6 @@
 
 This package is forked from https://github.com/chentsulin/sweetalert-react and adopted for https://github.com/limonte/sweetalert2
 
-`sweetalert-react` is a wrapped `sweetalert` implement with declarative React style component api. There is a `show` prop on it to determinate that alert should be displayed or not, and `onConfirm`, `onCancel`, `onClose`, `onEscapeKey` and `onOutsideClick` props to have more controls on alert element event.
-
 ## Install
 
 ```
@@ -40,41 +38,13 @@ render() {
 }
 ```
 
-You should import `sweetalert.css` from cdn, file, node_modules(sweetalert/dist/sweetalert.css) or wherever can find the css code.
+You should import `sweetalert2.css` from 'sweetalert2-react/src/sweetalert2.css'.
 
-Checkout full examples [here](./examples).
+Checkout full examples https://github.com/chentsulin/sweetalert-react
 
-## Removed Options
+## Tests
 
-- **timer**: You should use `setTimeout` and pass `show` as false.
-- **closeOnConfirm**: You should pass `show` as false via `onConfirm`.
-- **closeOnCancel**: You should pass `show` as false via `onCancel`.
-- **allowEscapeKey**: You should pass `show` as false via `onEscapeKey`.
-- **allowOutsideClick**: You should pass `show` as false via `onOutsideClick`.
-
-All of other options can be passed as props, see them in [Configuare Section in sweetalert document](http://t4t5.github.io/sweetalert/)
-
-## FAQ
-
-### Q: My alert didn't close when 'go back' or 'go forward' in browser
-
-You can listen history change and set `show: false` when it mounted. See full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/history-change/components/App.js).
-
-### Q: Can I use react component to render html for popup body?
-
-Sure, you can achieve it with `ReactDOMServer.renderToStaticMarkup`:
-
-```js
-import { renderToStaticMarkup } from 'react-dom/server';
-
-<SweetAlert
-  show={this.state.show}
-  title="Demo"
-  html
-  text={renderToStaticMarkup(<HelloWorld />)}
-  onConfirm={() => this.setState({ show: false })}
-/>
-```
+Test were not updated to support sweetalert2. PRs are welcome.
 
 See full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/component-as-body/components/App.js). Thanks @ArkadyB for discovering the approach in [issue #53](https://github.com/chentsulin/sweetalert-react/issues/53).
 
