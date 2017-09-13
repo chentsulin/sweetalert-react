@@ -38,7 +38,7 @@ render() {
 }
 ```
 
-You should import `sweetalert2.css` from 'sweetalert2-react/src/sweetalert2.css'.
+You should import `sweetalert2.css` from 'sweetalert2' package.
 
 Checkout full examples https://github.com/chentsulin/sweetalert-react
 
