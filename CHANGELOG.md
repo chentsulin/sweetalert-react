@@ -1,3 +1,7 @@
+0.4.11 / 2017-12-12
+===================
+- [new] Support React v16
+
 0.4.10 / 2017-04-24
 ==================
 - [deps] Removes prototype reference which raises warnings in react 15.5 [#71](https://github.com/chentsulin/sweetalert-react/pull/71).
