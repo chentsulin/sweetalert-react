@@ -7,7 +7,7 @@
 
 ## Introduction
 
-`sweetalert-react` is a wrapped `sweetalert` implement with declarative React style component api. There is a `show` prop on it to determinate that alert should be displayed or not, and `onConfirm`, `onCancel`, `onClose`, `onEscapeKey` and `onOutsideClick` props to have more controls on alert element event.
+`sweetalert-react` is a wrapped `sweetalert` implementation with declarative React style component APIs. There is a `show` prop available for toggling alert component's visibility. And `onConfirm`, `onCancel`, `onClose`, `onEscapeKey`, `onOutsideClick` props allow you have a fine grained control over alert component events.
 
 ## Install
 
@@ -38,9 +38,9 @@ render() {
 }
 ```
 
-You should import `sweetalert.css` from cdn, file, node_modules(sweetalert/dist/sweetalert.css) or wherever can find the css code.
+You should import `sweetalert.css` from CDN, file, node_modules(sweetalert/dist/sweetalert.css) or wherever method to include this CSS file.
 
-Checkout full examples [here](./examples).
+Checkout the full examples [here](./examples).
 
 ## Removed Options
 
@@ -50,17 +50,17 @@ Checkout full examples [here](./examples).
 - **allowEscapeKey**: You should pass `show` as false via `onEscapeKey`.
 - **allowOutsideClick**: You should pass `show` as false via `onOutsideClick`.
 
-All of other options can be passed as props, see them in [Configuare Section in sweetalert document](http://t4t5.github.io/sweetalert/)
+All other options can be passed as props, see them in [Configuare Section in sweetalert document](http://t4t5.github.io/sweetalert/)
 
 ## FAQ
 
 ### Q: My alert didn't close when 'go back' or 'go forward' in browser
 
-You can listen history change and set `show: false` when it mounted. See full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/history-change/components/App.js).
+You can listen to history changes and set `show: false` when it is mounted. See the full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/history-change/components/App.js).
 
-### Q: Can I use react component to render html for popup body?
+### Q: Can I use react component to render HTML as the alert body?
 
-Sure, you can achieve it with `ReactDOMServer.renderToStaticMarkup`:
+Sure, you can achieve this with `ReactDOMServer.renderToStaticMarkup`:
 
 ```js
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -74,7 +74,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 />
 ```
 
-See full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/component-as-body/components/App.js). Thanks @ArkadyB for discovering the approach in [issue #53](https://github.com/chentsulin/sweetalert-react/issues/53).
+See the full example [here](https://github.com/chentsulin/sweetalert-react/blob/master/examples/component-as-body/components/App.js). Thanks @ArkadyB for discovering the approach in [issue #53](https://github.com/chentsulin/sweetalert-react/issues/53).
 
 ## Relevant Projects
 
