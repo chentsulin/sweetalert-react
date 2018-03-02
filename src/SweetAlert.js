@@ -79,6 +79,7 @@ export default class SweetAlert extends Component {
     // sweetalert option
     title: PropTypes.string.isRequired,
     text: PropTypes.string,
+    swal: PropTypes.func,
     type: PropTypes.oneOf(['warning', 'error', 'success', 'info', 'input']),
     customClass: PropTypes.string,
     showCancelButton: PropTypes.bool,
@@ -139,7 +140,9 @@ export default class SweetAlert extends Component {
 
   constructor(props, context) {
     super(props, context)
+
     this._show = false
+    this.swal = props.swal || swal
   }
 
   componentDidMount() {
@@ -177,7 +180,7 @@ export default class SweetAlert extends Component {
     warningRemoved(props)
     const { show, onConfirm, onCancel, onClose, onEscapeKey } = props
     if (show) {
-      swal(
+      this.swal(
         {
           ...pick(props, ALLOWS_KEYS),
           ...OVERWRITE_PROPS,
@@ -247,7 +250,7 @@ export default class SweetAlert extends Component {
 
   handleClose(onClose) {
     if (this._show) {
-      swal.close()
+      this.swal.close()
       this.unbindEscapeKey()
       if (onClose) onClose()
       this._show = false
