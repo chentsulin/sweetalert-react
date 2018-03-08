@@ -73,7 +73,7 @@ function warningRemoved(props) {
   })
 }
 
-export const asReactComponent = swalInstance => (
+export const withSwalInstance = swalInstance => (
   class SweetAlert extends Component {
     /* eslint-disable react/no-unused-prop-types */
     static propTypes = {
@@ -263,5 +263,5 @@ export const asReactComponent = swalInstance => (
   }
 )
 
-export default asReactComponent(swal)
+export default withSwalInstance(swal)
 
