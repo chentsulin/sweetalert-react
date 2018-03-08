@@ -10,6 +10,7 @@
   "rules": {
     "arrow-parens": ["error", "as-needed"],
     "class-methods-use-this": "off",
+    "semi": ["error", "never"],
     "comma-dangle": "off",
     "consistent-return": "off",
     "no-underscore-dangle": "off",
