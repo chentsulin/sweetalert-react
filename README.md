@@ -1,7 +1,9 @@
 # sweetalert2-react
 
-[![NPM version][npm-image]][npm-url]
-[![Dependency Status][david_img]][david_site]
+[![npm version][npm-image]][npm-url]
+[![Build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
+[![Downloads][downloads-image]][downloads-url]
 
 > Declarative SweetAlert in React
 
@@ -38,7 +40,7 @@ render() {
 }
 ```
 
-Since 0.6, you can wrap your own swal instance:
+Since 0.6, you can wrap your own sweetalert2 (swal) instance:
 
 ```js
 import React, { Component } from 'react';
@@ -64,23 +66,21 @@ render() {
 }
 ```
 
-You should import `sweetalert2.css` from 'sweetalert2' package.
-
-Checkout full examples https://github.com/chentsulin/sweetalert-react
-
 ## Tests
 
-Test were not updated to support sweetalert2. PRs are welcome.
+Tests were not updated to support sweetalert2. PRs are welcome.
 
 ## License
 
-MIT © [C.T. Lin](https://github.com/chentsulin/sweetalert-react)
+MIT © [C.T. Lin](https://github.com/alex-shamshurin/sweetalert2-react)
 
-[npm-image]: https://badge.fury.io/js/sweetalert-react.svg
-[npm-url]: https://npmjs.org/package/sweetalert-react
-[travis-image]: https://travis-ci.org/chentsulin/sweetalert-react.svg
-[travis-url]: https://travis-ci.org/chentsulin/sweetalert-react
-[coveralls-image]: https://coveralls.io/repos/chentsulin/sweetalert-react/badge.svg?branch=master&service=github
-[coveralls-url]: https://coveralls.io/r/chentsulin/sweetalert-react?branch=master
-[david_img]: https://david-dm.org/chentsulin/sweetalert-react.svg
-[david_site]: https://david-dm.org/chentsulin/sweetalert-react
+
+[npm-url]: https://npmjs.org/package/sweetalert2-react
+[travis-image]: https://img.shields.io/travis/alex-shamshurin/sweetalert2-react.svg?style=flat-square
+[travis-url]: https://travis-ci.org/alex-shamshurin/sweetalert2-react
+[coveralls-image]: https://img.shields.io/coveralls/alex-shamshurin/sweetalert2-react.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/alex-shamshurin/sweetalert2-react
+[npm-image]: https://img.shields.io/npm/v/sweetalert2-react.svg?style=flat-square
+[downloads-image]: http://img.shields.io/npm/dm/sweetalert2-react.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/sweetalert2-react
+

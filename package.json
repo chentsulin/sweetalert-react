@@ -1,6 +1,6 @@
 {
   "name": "sweetalert2-react",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Declarative SweetAlert 2 in React",
   "main": "lib/index.js",
   "license": "MIT",
