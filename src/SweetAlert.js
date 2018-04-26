@@ -92,7 +92,7 @@ export const withSwalInstance = swalInstance =>
       reverseButtons: PropTypes.bool,
       buttonsStyling: PropTypes.bool,
       imageUrl: PropTypes.string,
-      html: PropTypes.bool,
+      html: PropTypes.string,
       animation: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.oneOf(['pop', 'slide-from-top', 'slide-from-bottom'])
