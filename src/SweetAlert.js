@@ -104,6 +104,7 @@ export const withSwalInstance = swalInstance =>
 
       // custom option
       show: PropTypes.bool,
+      showLoading: PropTypes.bool,
       onConfirm: PropTypes.func,
       onCancel: PropTypes.func,
       onClose: PropTypes.func,
@@ -133,7 +134,7 @@ export const withSwalInstance = swalInstance =>
       inputPlaceholder: null,
       inputValue: null,
       showLoaderOnConfirm: false,
-
+      showLoading: false,
       // custom option
       show: false
     }
@@ -178,7 +179,7 @@ export const withSwalInstance = swalInstance =>
 
     setupWithProps(props) {
       warningRemoved(props)
-      const { show, onConfirm, onCancel, onClose, onEscapeKey } = props
+      const { show, onConfirm, onCancel, onClose, onEscapeKey, showLoading } = props
       if (show) {
         this._swal({
           ...pick(props, ALLOWS_KEYS),
@@ -191,6 +192,9 @@ export const withSwalInstance = swalInstance =>
             this.handleClickCancel(onCancel, dismiss)
           }
         )
+        if (showLoading) {
+          this._swal.showLoading();
+        }
         this._show = true
         if (onEscapeKey) this.bindEscapeKey(onEscapeKey)
       } else {
