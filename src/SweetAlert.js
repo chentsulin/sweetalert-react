@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import swal from 'sweetalert2'
-import pick from 'lodash.pick'
-import mousetrap from 'mousetrap'
-import warning from 'warning'
-import outsideTargetHandlerFactory from './utils/outsideTargetHandlerFactory'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import swal from 'sweetalert2';
+import pick from 'lodash.pick';
+import mousetrap from 'mousetrap';
+import warning from 'warning';
+import outsideTargetHandlerFactory from './utils/outsideTargetHandlerFactory';
 
 const ALLOWS_KEYS = [
   'title',
@@ -26,15 +26,15 @@ const ALLOWS_KEYS = [
   // 'inputType',
   'inputValue',
   'inputPlaceholder',
-  'showLoaderOnConfirm'
-]
+  'showLoaderOnConfirm',
+];
 
-const REMOVED_KEYS = ['timer', 'allowOutsideClick', 'allowEscapeKey']
+const REMOVED_KEYS = ['timer', 'allowOutsideClick', 'allowEscapeKey'];
 
 const OVERWRITE_PROPS = {
   allowOutsideClick: false,
-  allowEscapeKey: false
-}
+  allowEscapeKey: false,
+};
 
 // reference: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
 const ALLOWS_INPUT_TYPES = [
@@ -60,17 +60,17 @@ const ALLOWS_INPUT_TYPES = [
   'text',
   'time',
   'url',
-  'week'
-]
+  'week',
+];
 
 function warningRemoved(props) {
   REMOVED_KEYS.forEach(key => {
     warning(
       props[key] === undefined,
       '%s has been removed from sweetalert-react, pass `show` props and use event hook instead.',
-      `\`${key}\``
-    )
-  })
+      `\`${key}\``,
+    );
+  });
 }
 
 export const withSwalInstance = swalInstance =>
@@ -95,7 +95,7 @@ export const withSwalInstance = swalInstance =>
       html: PropTypes.string,
       animation: PropTypes.oneOfType([
         PropTypes.bool,
-        PropTypes.oneOf(['pop', 'slide-from-top', 'slide-from-bottom'])
+        PropTypes.oneOf(['pop', 'slide-from-top', 'slide-from-bottom']),
       ]),
       // inputType: PropTypes.oneOf(ALLOWS_INPUT_TYPES),
       inputPlaceholder: PropTypes.string,
@@ -108,8 +108,8 @@ export const withSwalInstance = swalInstance =>
       onCancel: PropTypes.func,
       onClose: PropTypes.func,
       onEscapeKey: PropTypes.func,
-      onOutsideClick: PropTypes.func
-    }
+      onOutsideClick: PropTypes.func,
+    };
     /* eslint-enable react/no-unused-prop-types */
 
     static defaultProps = {
@@ -135,130 +135,132 @@ export const withSwalInstance = swalInstance =>
       showLoaderOnConfirm: false,
 
       // custom option
-      show: false
-    }
+      show: false,
+    };
 
     constructor(props, context) {
-      super(props, context)
+      super(props, context);
 
-      this._show = false
-      this._swal = swalInstance
+      this._show = false;
+      this._swal = Object.assign(swalInstance, {});
     }
 
     componentDidMount() {
-      this.setupWithProps(this.props)
+      this.setupWithProps(this.props);
 
       if (this.props.onOutsideClick) {
-        this.registerOutsideClickHandler(this.props.onOutsideClick)
+        this.registerOutsideClickHandler(this.props.onOutsideClick);
       }
     }
 
     componentWillReceiveProps(props) {
-      this.setupWithProps(props)
+      this.setupWithProps(props);
 
-      const oldOutsideClickHandler = this.props.onOutsideClick
-      const newOutsideClickHandler = props.onOutsideClick
+      const oldOutsideClickHandler = this.props.onOutsideClick;
+      const newOutsideClickHandler = props.onOutsideClick;
 
       if (oldOutsideClickHandler !== newOutsideClickHandler) {
         if (oldOutsideClickHandler && newOutsideClickHandler) {
-          this.unregisterOutsideClickHandler()
-          this.registerOutsideClickHandler(newOutsideClickHandler)
+          this.unregisterOutsideClickHandler();
+          this.registerOutsideClickHandler(newOutsideClickHandler);
         } else if (oldOutsideClickHandler && !newOutsideClickHandler) {
-          this.unregisterOutsideClickHandler()
+          this.unregisterOutsideClickHandler();
         } else if (!oldOutsideClickHandler && newOutsideClickHandler) {
-          this.registerOutsideClickHandler(newOutsideClickHandler)
+          this.registerOutsideClickHandler(newOutsideClickHandler);
         }
       }
     }
 
     componentWillUnmount() {
-      this.unregisterOutsideClickHandler()
-      this.unbindEscapeKey()
+      this.unregisterOutsideClickHandler();
+      this.unbindEscapeKey();
     }
 
     setupWithProps(props) {
-      warningRemoved(props)
-      const { show, onConfirm, onCancel, onClose, onEscapeKey } = props
+      warningRemoved(props);
+      const { show, onConfirm, onCancel, onClose, onEscapeKey } = props;
       if (show) {
-        this._swal({
-          ...pick(props, ALLOWS_KEYS),
-          ...OVERWRITE_PROPS
-        }).then(
-          () => {
-            this.handleClickConfirm(onConfirm)
-          },
-          dismiss => {
-            this.handleClickCancel(onCancel, dismiss)
-          }
-        )
-        this._show = true
-        if (onEscapeKey) this.bindEscapeKey(onEscapeKey)
+        this._swal
+          .fire({
+            ...pick(props, ALLOWS_KEYS),
+            ...OVERWRITE_PROPS,
+          })
+          .then(
+            () => {
+              this.handleClickConfirm(onConfirm);
+            },
+            dismiss => {
+              this.handleClickCancel(onCancel, dismiss);
+            },
+          );
+        this._show = true;
+        if (onEscapeKey) this.bindEscapeKey(onEscapeKey);
       } else {
-        this.handleClose(onClose)
+        this.handleClose(onClose);
       }
     }
 
     registerOutsideClickHandler(handler) {
       this._outsideClickHandler = outsideTargetHandlerFactory(
         document.getElementsByClassName('sweet-alert')[0],
-        handler
-      )
-      this.enableOutsideClick()
+        handler,
+      );
+      this.enableOutsideClick();
     }
 
     unregisterOutsideClickHandler() {
-      this.disableOutsideClick()
-      this._outsideClickHandler = null
+      this.disableOutsideClick();
+      this._outsideClickHandler = null;
     }
 
     enableOutsideClick() {
-      const fn = this._outsideClickHandler
+      const fn = this._outsideClickHandler;
       if (fn) {
-        document.addEventListener('mousedown', fn)
-        document.addEventListener('touchstart', fn)
+        document.addEventListener('mousedown', fn);
+        document.addEventListener('touchstart', fn);
       }
     }
 
     disableOutsideClick() {
-      const fn = this._outsideClickHandler
+      const fn = this._outsideClickHandler;
       if (fn) {
-        document.removeEventListener('mousedown', fn)
-        document.removeEventListener('touchstart', fn)
+        document.removeEventListener('mousedown', fn);
+        document.removeEventListener('touchstart', fn);
       }
     }
 
     bindEscapeKey(onEscapeKey) {
-      mousetrap.bind('esc', onEscapeKey)
+      mousetrap.bind('esc', onEscapeKey);
     }
 
     unbindEscapeKey() {
-      mousetrap.unbind('esc')
+      mousetrap.unbind('esc');
     }
 
     handleClickConfirm(onConfirm) {
       if (onConfirm) {
-        onConfirm()
+        onConfirm();
       }
     }
 
     handleClickCancel(onCancel) {
       if (onCancel) {
-        onCancel()
+        onCancel();
       }
     }
 
     handleClose(onClose) {
       if (this._show) {
-        this._swal.close()
-        this.unbindEscapeKey()
-        if (onClose) onClose()
-        this._show = false
+        this._swal.close();
+        this.unbindEscapeKey();
+        if (onClose) onClose();
+        this._show = false;
       }
     }
 
     render() {
-      return null
+      return null;
     }
-  }
+  };
 
-export default withSwalInstance(swal)
+export default withSwalInstance(swal);
