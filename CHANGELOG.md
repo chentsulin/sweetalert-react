@@ -1,3 +1,8 @@
+0.8.0 / 2019-03-09
+==================
+- [deps] update dependencies
+- [fix]  support latest sweetalert2
+
 0.4.10 / 2017-04-24
 ==================
 - [deps] Removes prototype reference which raises warnings in react 15.5 [#71](https://github.com/chentsulin/sweetalert-react/pull/71).
@@ -22,3 +27,4 @@
 ==================
 - [deps] update dependencies
 - [fix] Added `inputValue` to `ALLOWS_KEYS` [#33](https://github.com/chentsulin/sweetalert-react/pull/33).
+
