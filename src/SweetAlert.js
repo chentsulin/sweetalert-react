@@ -127,7 +127,7 @@ export const withSwalInstance = swalInstance =>
       buttonsStyling: true,
       reverseButtons: false,
       imageUrl: null,
-      html: false,
+      html: null,
       animation: true,
       // inputType: 'text',
       inputPlaceholder: null,

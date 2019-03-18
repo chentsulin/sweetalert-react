@@ -56,7 +56,7 @@ describe('allow ALLOWS_KEYS as props', () => {
         cancelButtonText="cannel"
         imageUrl=""
         imageSize="160x160"
-        html
+        html="some html"
         animation
         inputType="text"
         inputValue="default"

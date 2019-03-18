@@ -20,8 +20,7 @@ class App extends Component {
         <SweetAlert
           show={this.state.show}
           title="Demo"
-          html
-          text={renderToStaticMarkup(<HelloWorld />)}
+          html={renderToStaticMarkup(<HelloWorld />)}
           onConfirm={() => this.setState({ show: false })}
         />
       </div>
