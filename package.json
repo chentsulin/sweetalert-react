@@ -1,8 +1,8 @@
 {
   "name": "sweetalert2-react",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Declarative SweetAlert 2 in React",
-  "main": "lib/index.js",
+  "main": "dist/sweetalert-react.min.js",
   "license": "MIT",
   "repository": "alex-shamshurin/sweetalert2-react",
   "scripts": {
@@ -30,7 +30,7 @@
     "node": ">=0.10.0"
   },
   "files": [
-    "lib/"
+    "dist/"
   ],
   "keywords": [
     "alert",
