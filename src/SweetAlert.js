@@ -186,8 +186,8 @@ export const withSwalInstance = swalInstance =>
             ...OVERWRITE_PROPS,
           })
           .then(
-            () => {
-              this.handleClickConfirm(onConfirm);
+            (result) => {
+              this.handleClickConfirm(onConfirm, result.value);
             },
             dismiss => {
               this.handleClickCancel(onCancel, dismiss);
@@ -237,15 +237,15 @@ export const withSwalInstance = swalInstance =>
       mousetrap.unbind('esc');
     }
 
-    handleClickConfirm(onConfirm) {
+    handleClickConfirm(onConfirmm, result) {
       if (onConfirm) {
-        onConfirm();
+        onConfirm(result);
       }
     }
 
-    handleClickCancel(onCancel) {
+    handleClickCancel(onCancel, reason) {
       if (onCancel) {
-        onCancel();
+        onCancel(reason);
       }
     }
 
