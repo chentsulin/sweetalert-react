@@ -23,6 +23,9 @@ const ALLOWS_KEYS = [
   'imageUrl',
   'html',
   'animation',
+  'position',
+  'toast',
+  'backdrop',
   // 'inputType',
   'inputValue',
   'inputPlaceholder',
@@ -97,6 +100,18 @@ export const withSwalInstance = swalInstance =>
         PropTypes.bool,
         PropTypes.oneOf(['pop', 'slide-from-top', 'slide-from-bottom']),
       ]),
+      position: PropTypes.oneOf(
+        [
+          'top', 'top-start', 'top-end',
+          'center', 'center-start', 'center-end',
+          'bottom', 'bottom-start', 'bottom-end'
+        ]
+      ),
+      toast: PropTypes.bool,
+      backdrop: PropTypes.oneOfType(
+        PropTypes.bool,
+        PropTypes.string
+      ),
       // inputType: PropTypes.oneOf(ALLOWS_INPUT_TYPES),
       inputPlaceholder: PropTypes.string,
       inputValue: PropTypes.string,
@@ -129,6 +144,9 @@ export const withSwalInstance = swalInstance =>
       imageUrl: null,
       html: null,
       animation: true,
+      position: 'center',
+      toast: false,
+      backdrop: true,
       // inputType: 'text',
       inputPlaceholder: null,
       inputValue: null,
