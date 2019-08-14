@@ -1,8 +1,7 @@
 module.exports = {
   presets: [
-    [
-      '@babel/preset-env',
-    ],
+    '@babel/preset-env',
+    '@babel/preset-react'
   ],
   plugins: [
     ['@babel/plugin-proposal-decorators', { legacy: true }],
@@ -10,5 +9,3 @@ module.exports = {
   ],
   ignore: ['node_modules', 'build'],
 };
-
-

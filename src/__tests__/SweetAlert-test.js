@@ -6,11 +6,12 @@ import swal from 'sweetalert2';
 
 import SweetAlert from '../SweetAlert';
 
-jest.mock('sweetalert');
-
 let _error;
 
+jest.mock('sweetalert2');
+
 beforeEach(() => {
+  swal.mockClear();
   _error = console.error;
   console.error = jest.fn();
 });
@@ -18,25 +19,15 @@ beforeEach(() => {
 afterEach(() => {
   console.error = _error;
   _error = null;
-  swal.mockClear();
 });
 
 describe('propTypes', () => {
-  it('should return error when imageSize invalid', () => {
-    expect(SweetAlert.propTypes.imageSize({ imageSize: '8080' }, 'imageSize'))
-      .toBeInstanceOf(Error);
-  });
-
-  it('should not return error when imageSize valid', () => {
-    expect(SweetAlert.propTypes.imageSize({ imageSize: '80x80' }, 'imageSize'))
-      .not.toBeInstanceOf(Error);
-  });
-
-  it('should warning when title is not passed down to props', () => {
+  it('should warn when title is not passed down to props', () => {
     mount(<SweetAlert />);
-    const message = console.error.mock.calls[0][0];
-    expect(message).toMatch(
-      /Failed prop type: The prop `title` is marked as required in `SweetAlert`/
+
+    expect(console.error).toBeCalledWith(
+      "Warning: Failed prop type: The prop `title` is marked as required in `SweetAlert`, but its value is `undefined`.\n" +
+      "    in SweetAlert"
     );
   });
 });
@@ -55,7 +46,6 @@ describe('allow ALLOWS_KEYS as props', () => {
         confirmButtonColor="green"
         cancelButtonText="cannel"
         imageUrl=""
-        imageSize="160x160"
         html="some html"
         animation
         inputType="text"
@@ -68,8 +58,8 @@ describe('allow ALLOWS_KEYS as props', () => {
   });
 });
 
-describe('warning REMOVED_KEYS', () => {
-  it('should warning when REMOVED_KEYS:timer is passed down to props', () => {
+describe('warn for REMOVED_KEYS', () => {
+  it('should warn when REMOVED_KEYS:timer is passed down to props', () => {
     mount(<SweetAlert title="t" timer={60} />);
     expect(console.error).toBeCalledWith(
       'Warning: `timer` has been removed from sweetalert-react, ' +
@@ -77,15 +67,7 @@ describe('warning REMOVED_KEYS', () => {
     );
   });
 
-  it('should warning when REMOVED_KEYS:timer is passed down to props', () => {
-    mount(<SweetAlert title="t" timer={60} />);
-    expect(console.error).toBeCalledWith(
-      'Warning: `timer` has been removed from sweetalert-react, ' +
-      'pass `show` props and use event hook instead.'
-    );
-  });
-
-  it('should warning when REMOVED_KEYS:closeOnConfirm is passed down to props', () => {
+  it('should warn when REMOVED_KEYS:closeOnConfirm is passed down to props', () => {
     mount(<SweetAlert title="t" closeOnConfirm />);
     expect(console.error).toBeCalledWith(
       'Warning: `closeOnConfirm` has been removed from sweetalert-react, ' +
@@ -93,7 +75,7 @@ describe('warning REMOVED_KEYS', () => {
     );
   });
 
-  it('should warning when REMOVED_KEYS:closeOnCancel is passed down to props', () => {
+  it('should warn when REMOVED_KEYS:closeOnCancel is passed down to props', () => {
     mount(<SweetAlert title="t" closeOnCancel />);
     expect(console.error).toBeCalledWith(
       'Warning: `closeOnCancel` has been removed from sweetalert-react, ' +
@@ -101,7 +83,7 @@ describe('warning REMOVED_KEYS', () => {
     );
   });
 
-  it('should warning when REMOVED_KEYS:allowOutsideClick is passed down to props', () => {
+  it('should warn when REMOVED_KEYS:allowOutsideClick is passed down to props', () => {
     mount(<SweetAlert title="t" allowOutsideClick />);
     expect(console.error).toBeCalledWith(
       'Warning: `allowOutsideClick` has been removed from sweetalert-react, ' +
@@ -109,7 +91,7 @@ describe('warning REMOVED_KEYS', () => {
     );
   });
 
-  it('should warning when REMOVED_KEYS:allowEscapeKey is passed down to props', () => {
+  it('should warn when REMOVED_KEYS:allowEscapeKey is passed down to props', () => {
     mount(<SweetAlert title="t" allowEscapeKey />);
     expect(console.error).toBeCalledWith(
       'Warning: `allowEscapeKey` has been removed from sweetalert-react, ' +
@@ -118,39 +100,43 @@ describe('warning REMOVED_KEYS', () => {
   });
 });
 
-describe('should show prop works', () => {
-  it('should call sweetalert when show is true', async () => {
+describe('display modal by props', () => {
+  it('shouldn\'t call sweetalert when "show" prop is false', () => {
+    mount(
+      <SweetAlert title="t" show={false} />
+    );
+
+    expect(swal.fire).not.toBeCalled();
+  });
+
+  it('should call sweetalert when show is true', () => {
+
     mount(
       <SweetAlert title="t" show />
     );
-    expect(swal).toBeCalled();
-  });
 
-  it('should call sweetalert when show is false', async () => {
-    mount(
-      <SweetAlert title="t" />
-    );
-    expect(swal).not.toBeCalled();
+    expect(swal.fire).toBeCalled();
   });
 });
 
-describe('`onConfirm`', () => {
-  xit('should  works', () => {
+describe('callback onConfirm', () => {
+  it('should be a function', () => {
     const callback = jest.fn();
-    mount(
-      <SweetAlert title="t" show onConfirm={callback} />
+    const s = mount(
+      <SweetAlert title="t" show={true} onConfirm={callback} />
     );
+
+    expect(s.prop('onConfirm')).toEqual(callback)
   });
 });
 
-describe('Cancel', () => {
-  // body...
-});
+describe('callback onCancel', () => {
+  it('should be a function', () => {
+    const callback = jest.fn();
+    const s = mount(
+      <SweetAlert title="t" show={true} onCancel={callback} />
+    );
 
-describe('Outside click', () => {
-  // body...
-});
-
-describe('ESC', () => {
-  // body...
+    expect(s.prop('onCancel')).toEqual(callback)
+  });
 });

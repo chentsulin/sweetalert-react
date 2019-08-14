@@ -44,15 +44,18 @@
     "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/plugin-proposal-decorators": "^7.3.0",
-    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.5",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^5.15.2",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
+    "jest": "^24.8.0",
     "jest-cli": "^24.5.0",
     "prettier": "^1.16.4",
     "react": "^16.2.0",
@@ -74,12 +77,19 @@
     "react-dom": "^16.0.0"
   },
   "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>test_setup.js"
+    ],
     "verbose": true,
     "collectCoverageFrom": [
       "src/**/*.js"
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/lib"
+    ],
+    "unmockedModulePathPatterns": [
+      "node_modules/react/",
+      "node_modules/enzyme/"
     ]
   }
 }
