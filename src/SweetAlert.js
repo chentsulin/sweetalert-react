@@ -171,7 +171,7 @@ export const withSwalInstance = swalInstance =>
       }
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
       this.setupWithProps(props);
 
       const oldOutsideClickHandler = this.props.onOutsideClick;
